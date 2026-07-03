@@ -55,6 +55,18 @@
   color: transparent;
 }
 
+.theme {
+  font-size: 1rem;
+  font-weight: 700;
+  font-style: italic;
+  letter-spacing: 0.05em;
+  margin: 0 0 24px;
+  background: linear-gradient(90deg, #ffb347, #ff5f6d);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
 .status {
   font-size: 1.25rem;
   font-weight: 600;
