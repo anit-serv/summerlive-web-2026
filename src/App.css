@@ -58,12 +58,14 @@
 }
 
 .theme {
+  display: inline-block;
   font-size: clamp(3rem, 16vw, 6rem);
   font-weight: 800;
   font-style: italic;
   line-height: 1;
   letter-spacing: -0.02em;
   margin: 0 0 28px;
+  padding-right: 0.15em;
   background: var(--heat);
   -webkit-background-clip: text;
   background-clip: text;
