@@ -13,7 +13,7 @@ function App() {
         <br />
         公開まで今しばらくお待ちください。
       </p>
-      <footer>&copy; 2026 サマーライブHP班</footer>
+      <footer>&copy; ANIT</footer>
     </div>
   )
 }
