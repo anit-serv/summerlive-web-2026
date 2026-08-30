@@ -1,17 +1,24 @@
-* {
-  box-sizing: border-box;
-}
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300..900&family=Geist:wght@300..800&family=Instrument+Serif:ital@0,1&display=swap');
+@import 'tailwindcss';
 
-html,
-body {
-  margin: 0;
-  height: 100%;
-}
+@font-face { font-family: 'Outfit:Black'; src: url('https://static.figma.com/font/Outfit_wght__2') format('woff2'); font-weight: 900; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Outfit:ExtraBold'; src: url('https://static.figma.com/font/Outfit_wght__2') format('woff2'); font-weight: 800; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Outfit:Bold'; src: url('https://static.figma.com/font/Outfit_wght__2') format('woff2'); font-weight: 700; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Outfit:Light'; src: url('https://static.figma.com/font/Outfit_wght__2') format('woff2'); font-weight: 300; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Geist:ExtraBold'; src: url('https://static.figma.com/font/Geist_wght__1') format('woff2'); font-weight: 800; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Geist:Bold'; src: url('https://static.figma.com/font/Geist_wght__1') format('woff2'); font-weight: 700; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Geist:SemiBold'; src: url('https://static.figma.com/font/Geist_wght__1') format('woff2'); font-weight: 600; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Geist:Medium'; src: url('https://static.figma.com/font/Geist_wght__1') format('woff2'); font-weight: 500; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Geist:Regular'; src: url('https://static.figma.com/font/Geist_wght__1') format('woff2'); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Geist:Light'; src: url('https://static.figma.com/font/Geist_wght__1') format('woff2'); font-weight: 300; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Instrument Serif:Italic'; src: url('https://static.figma.com/font/InstrumentSerif-Italic_1') format('woff2'); font-weight: 400; font-style: italic; font-display: swap; }
 
-body {
-  font-family: 'Hiragino Sans', 'Yu Gothic', 'Segoe UI', system-ui, sans-serif;
-}
+html, body, #root { min-height: 100%; margin: 0; background: #060713; }
 
-#root {
-  min-height: 100svh;
+/* 星素材は縦横比がそれぞれ異なるため、正方形の装飾枠で切り抜かない。 */
+img[src*="1a1b5745de4bc4915c29786105e81566ac154bb0"],
+img[src*="0e9a6ad63274d7b6fc7628b59dfc54a852ec7342"],
+img[src*="48d21aeced0d557b1fc9e9791b116a6777ee3227"],
+img[src*="addc1c5be84b80fe871ce2a93508aa622625ca80"] {
+  object-fit: contain;
 }
