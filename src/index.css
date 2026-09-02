@@ -15,10 +15,13 @@
 
 html, body, #root { min-height: 100%; margin: 0; background: #060713; }
 
-/* 星素材は縦横比がそれぞれ異なるため、正方形の装飾枠で切り抜かない。 */
-img[src*="1a1b5745de4bc4915c29786105e81566ac154bb0"],
-img[src*="0e9a6ad63274d7b6fc7628b59dfc54a852ec7342"],
-img[src*="48d21aeced0d557b1fc9e9791b116a6777ee3227"],
-img[src*="addc1c5be84b80fe871ce2a93508aa622625ca80"] {
+/* 星素材は縦横比を保ち、クリック時にだけ回転させる。 */
+img[src*="star1"],
+img[src*="star2"],
+img[src*="star3"],
+img[src*="star4"] {
   object-fit: contain;
+  cursor: pointer;
+  pointer-events: auto !important;
+  touch-action: manipulation;
 }

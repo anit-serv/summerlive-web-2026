@@ -1,10 +1,10 @@
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import TicketCtaSection from "../components/TicketCtaSection";
-import imgStar1 from "../imports/SponsorsPage/0e9a6ad63274d7b6fc7628b59dfc54a852ec7342.png";
-import imgStar2 from "../imports/SponsorsPage/48d21aeced0d557b1fc9e9791b116a6777ee3227.png";
-import imgStar3 from "../imports/SponsorsPage/1a1b5745de4bc4915c29786105e81566ac154bb0.png";
-import imgStar4 from "../imports/SponsorsPage/addc1c5be84b80fe871ce2a93508aa622625ca80.png";
+import imgStar1 from "../assets/logo/stars/star1.png";
+import imgStar2 from "../assets/logo/stars/star4.png";
+import imgStar3 from "../assets/logo/stars/star2.png";
+import imgStar4 from "../assets/logo/stars/star3.png";
 
 type Sponsor = { name: string; logo?: string; size: "large" | "small" }
 

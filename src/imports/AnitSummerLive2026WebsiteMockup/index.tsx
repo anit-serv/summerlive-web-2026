@@ -2,11 +2,11 @@ import { useEffect, useLayoutEffect, useRef, useState, type ReactNode } from "re
 import svgPaths from "./svg-mgxjo3va0f";
 import imgHeroBg from "./e6c136ba7e16974cb9b54225078026295647ba89.png";
 import imgHeatUpTheme2Logo from "./2c47d36d4cbf9106105be9c15f8e09b16e955d8e.png";
-import imgRectangle from "./1a1b5745de4bc4915c29786105e81566ac154bb0.png";
+import imgRectangle from "../../assets/logo/stars/star2.png";
 import imgHeroIllustrationMain from "./3231ca4a209615e16870d257b55d609595b1c0ac.png";
-import imgRectangle1 from "./0e9a6ad63274d7b6fc7628b59dfc54a852ec7342.png";
-import imgRectangle2 from "./48d21aeced0d557b1fc9e9791b116a6777ee3227.png";
-import imgRectangle3 from "./addc1c5be84b80fe871ce2a93508aa622625ca80.png";
+import imgRectangle1 from "../../assets/logo/stars/star1.png";
+import imgRectangle2 from "../../assets/logo/stars/star4.png";
+import imgRectangle3 from "../../assets/logo/stars/star3.png";
 import imgDarkBadgeLogo from "./903602c17e66886ba85a516cd4e558e1b25e0dc7.png";
 import instagramIcon from "../../assets/social/instagram.svg";
 import xIcon from "../../assets/social/x-white.png";
