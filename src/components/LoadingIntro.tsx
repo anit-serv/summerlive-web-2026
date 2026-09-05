@@ -105,7 +105,7 @@ export default function LoadingIntro({ onComplete }: { onComplete: () => void })
   }, [assetsReady, onComplete])
 
   return (
-    <div className={`loading-intro loading-intro--${stage} loading-intro--frame-${frame} ${assetsReady ? 'loading-intro--ready' : 'loading-intro--loading'}`} aria-hidden="true" style={backdropStyle}>
+    <div className={`loading-intro loading-intro--${stage} loading-intro--frame-${frame} ${frame >= 0 ? 'loading-intro--smoke-started' : ''} ${assetsReady ? 'loading-intro--ready' : 'loading-intro--loading'}`} aria-hidden="true" style={backdropStyle}>
       <div className="loading-intro__curtain">
         <div className="loading-intro__scene">
           {earlyFrames.map((source, index) => (

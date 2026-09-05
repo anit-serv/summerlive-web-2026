@@ -168,7 +168,7 @@ img[src*="star4"] {
   left: 50%;
 }
 
-.loading-intro--awakening .loading-intro__lamp,
+.loading-intro--awakening.loading-intro--smoke-started .loading-intro__lamp,
 .loading-intro--rising .loading-intro__lamp {
   animation: lamp-rattle 200ms steps(2, end) infinite;
 }
