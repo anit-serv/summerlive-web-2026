@@ -1,8 +1,9 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import AnitSummerLive2026WebsiteMockup from './imports/AnitSummerLive2026WebsiteMockup'
 import SponsorsPage from './pages/SponsorsPage'
 import PerformingBandsPage from './pages/PerformingBandsPage'
 import Navbar from './components/Navbar'
+import LoadingIntro from './components/LoadingIntro'
 
 const activeStarAnimations = new WeakMap<HTMLImageElement, {
   frame: number
@@ -112,10 +113,13 @@ function useStarSpin() {
 }
 
 function HomePage() {
+  const [isIntroVisible, setIsIntroVisible] = useState(true)
+
   return (
     <div className="relative overflow-x-hidden bg-[#060713]">
       <Navbar />
       <AnitSummerLive2026WebsiteMockup />
+      {isIntroVisible ? <LoadingIntro onComplete={() => setIsIntroVisible(false)} /> : null}
     </div>
   )
 }

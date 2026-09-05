@@ -13,7 +13,47 @@
 @font-face { font-family: 'Geist:Light'; src: url('https://static.figma.com/font/Geist_wght__1') format('woff2'); font-weight: 300; font-style: normal; font-display: swap; }
 @font-face { font-family: 'Instrument Serif:Italic'; src: url('https://static.figma.com/font/InstrumentSerif-Italic_1') format('woff2'); font-weight: 400; font-style: italic; font-display: swap; }
 
+:root {
+  --header-height: 68px;
+  --header-inline-padding: 20px;
+  --header-logo-size: 22px;
+  --header-nav-gap: 24px;
+  --header-content-gap: 20px;
+}
+
 html, body, #root { min-height: 100%; margin: 0; background: #060713; }
+
+@media (min-width: 768px) {
+  :root {
+    --header-height: clamp(76px, calc(60px + 2.083vw), 90px);
+    --header-inline-padding: clamp(32px, 5.556vw, 80px);
+    --header-logo-size: clamp(18px, 1.528vw, 22px);
+    --header-nav-gap: clamp(20px, 2.778vw, 40px);
+  }
+}
+
+.responsive-hero-section {
+  /* 元アートボードの上余白160px（= 11.111vw）とヘッダー高を同じ式で比較する。 */
+  --hero-header-inset: max(0px, calc(var(--header-height) + var(--header-content-gap) - min(11.111vw, 160px)));
+}
+
+@keyframes mobile-menu-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes mobile-menu-item-in {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.mobile-menu-overlay {
+  animation: mobile-menu-fade-in 220ms ease-out both;
+}
+
+.mobile-menu-item {
+  animation: mobile-menu-item-in 360ms cubic-bezier(0.2, 0.75, 0.25, 1) both;
+}
 
 /* 星素材は縦横比を保ち、クリック時にだけ回転させる。 */
 img[src*="star1"],
@@ -24,4 +64,169 @@ img[src*="star4"] {
   cursor: pointer;
   pointer-events: auto !important;
   touch-action: manipulation;
+}
+
+/* トップページを隠し、ランプから煙が広がって抜ける導入演出。 */
+.loading-intro {
+  /* 煙8（1024×1536）の表示高さから、上へ必要な背景量を画面ごとに計算する。 */
+  /* JSで画面のアスペクト比に合わせた連続値に置き換えるフォールバック。 */
+  --smoke8-bottom: -8vh;
+  --smoke8-extension-height: 189.84vh;
+  --smoke8-height: max(324.84vh, 360.94vw);
+  align-items: center;
+  display: flex;
+  inset: 0;
+  justify-content: center;
+  overflow: hidden;
+  position: fixed;
+  z-index: 100;
+}
+
+.loading-intro__curtain {
+  background: #060713;
+  /* 上方向へ三画面分はみ出した背景。どの比率でも透明な煙8の背後まで覆う。 */
+  height: 400vh;
+  left: 0;
+  /* 煙8の上端はこのレイヤーの外へ伸ばし、スワイプ中に画面へ入れられるようにする。 */
+  overflow: visible;
+  position: absolute;
+  top: -300vh;
+  width: 100%;
+}
+
+.loading-intro__scene {
+  height: 100vh;
+  position: absolute;
+  top: 300vh;
+  width: 100%;
+  z-index: 1;
+}
+
+.loading-intro--loading .loading-intro__scene {
+  visibility: hidden;
+}
+
+.loading-intro__lamp,
+.loading-intro__smoke,
+.loading-intro__smoke8 {
+  left: 50%;
+  pointer-events: none;
+  position: absolute;
+  translate: -50% 0;
+  user-select: none;
+}
+
+.loading-intro__lamp {
+  bottom: -1vh;
+  filter: drop-shadow(0 0 34px rgba(151, 77, 255, 0.34));
+  left: auto;
+  max-width: min(440px, 72vw);
+  right: -0.5vw;
+  transform-origin: top left;
+  translate: 0 0;
+  width: 34vw;
+}
+
+.loading-intro__smoke {
+  /* 煙は画面中央で大きく立ち上がる。 */
+  bottom: 24vh;
+  left: 50%;
+  max-width: none;
+  object-fit: contain;
+  visibility: hidden;
+  width: min(75vw, 920px);
+}
+
+.loading-intro__smoke--active {
+  visibility: visible;
+}
+
+/* 煙8は最初から正しい全画面サイズで読み込み、切替時は表示だけを変える。 */
+.loading-intro__smoke8 {
+  bottom: calc(var(--smoke8-bottom) + 20vh - var(--smoke8-extension-height));
+  display: none;
+  height: var(--smoke8-height);
+  left: 50%;
+  max-width: none;
+  object-fit: contain;
+  top: auto;
+  translate: -50% 0;
+  width: auto;
+}
+
+.loading-intro__smoke--early-0,
+.loading-intro__smoke--early-1,
+.loading-intro__smoke--early-2,
+.loading-intro__smoke--early-3 {
+  opacity: 0.94;
+}
+
+.loading-intro__smoke--rising-0,
+.loading-intro__smoke--rising-1,
+.loading-intro__smoke--rising-2 {
+  bottom: 24vh;
+  left: 50%;
+}
+
+.loading-intro--awakening .loading-intro__lamp,
+.loading-intro--rising .loading-intro__lamp {
+  animation: lamp-rattle 200ms steps(2, end) infinite;
+}
+
+.loading-intro--covering .loading-intro__smoke,
+.loading-intro--swiping .loading-intro__smoke {
+  display: none;
+}
+
+.loading-intro--covering .loading-intro__smoke8,
+.loading-intro--swiping .loading-intro__smoke8 {
+  display: block;
+}
+
+.loading-intro--covering .loading-intro__curtain,
+.loading-intro--swiping .loading-intro__curtain {
+  /* 煙8の上側は透過し、画像に焼き込んだ下部背景だけを残す。 */
+  background: transparent;
+}
+
+.loading-intro--swiping .loading-intro__curtain {
+  animation: intro-swipe-down 2500ms cubic-bezier(0.65, 0, 0.85, 0.32) both;
+}
+
+@keyframes lamp-rattle {
+  0%, 100% { rotate: -2deg; translate: -4px 1px; }
+  50% { rotate: 2deg; translate: 4px -1px; }
+}
+
+@keyframes intro-swipe-down {
+  from { translate: 0 0; }
+  to { translate: 0 410vh; }
+}
+
+@media (max-width: 640px) {
+  .loading-intro {
+    /* 425×900で調整した位置を基準に、煙と同じ画面幅基準で追従させる。 */
+    --mobile-smoke-bottom: 37vh;
+    --mobile-lamp-gap: 16.941vw;
+    --mobile-lamp-right: -4vw;
+    --mobile-lamp-width: 30vw;
+  }
+  .loading-intro__lamp {
+    bottom: calc(var(--mobile-smoke-bottom) - var(--mobile-lamp-gap));
+    left: auto;
+    max-width: none;
+    right: var(--mobile-lamp-right);
+    transform-origin: top right;
+    translate: 0 0;
+    width: var(--mobile-lamp-width);
+  }
+  .loading-intro__smoke { bottom: var(--mobile-smoke-bottom); left: 50%; width: 112vw; }
+  .loading-intro__smoke8 { bottom: calc(var(--smoke8-bottom) + 32vh - var(--smoke8-extension-height)); }
+  .loading-intro__smoke--rising-0,
+  .loading-intro__smoke--rising-1,
+  .loading-intro__smoke--rising-2 { bottom: var(--mobile-smoke-bottom); left: 50%; }
+  .loading-intro--covering .loading-intro__smoke,
+  .loading-intro--swiping .loading-intro__smoke {
+    display: none;
+  }
 }

@@ -1,22 +1,51 @@
 import { useEffect, useLayoutEffect, useRef, useState, type ReactNode } from "react";
 import svgPaths from "./svg-mgxjo3va0f";
-import imgHeroBg from "./e6c136ba7e16974cb9b54225078026295647ba89.png";
-import imgHeatUpTheme2Logo from "./2c47d36d4cbf9106105be9c15f8e09b16e955d8e.png";
+import imgHeroBg from "./e6c136ba7e16974cb9b54225078026295647ba89.webp";
+import imgHeatUpTheme2Logo from "./2c47d36d4cbf9106105be9c15f8e09b16e955d8e.webp";
 import imgRectangle from "../../assets/logo/stars/star2.png";
-import imgHeroIllustrationMain from "./3231ca4a209615e16870d257b55d609595b1c0ac.png";
+import imgHeroIllustrationMain from "./3231ca4a209615e16870d257b55d609595b1c0ac.webp";
 import imgRectangle1 from "../../assets/logo/stars/star1.png";
 import imgRectangle2 from "../../assets/logo/stars/star4.png";
 import imgRectangle3 from "../../assets/logo/stars/star3.png";
-import imgDarkBadgeLogo from "./903602c17e66886ba85a516cd4e558e1b25e0dc7.png";
-import instagramIcon from "../../assets/social/instagram.svg";
-import xIcon from "../../assets/social/x-white.png";
+import imgDarkBadgeLogo from "./903602c17e66886ba85a516cd4e558e1b25e0dc7.webp";
 import TicketCtaSection from "../../components/TicketCtaSection";
+import SiteFooter from "../../components/Footer";
 
-const instagramUrl = "https://www.instagram.com/anit_cl?igsh=MXdvbW13anp0amlnaA%3D%3D&utm_source=qr";
-const xUrl = "https://twitter.com/ANIT_LIVE";
 const ARTBOARD_WIDTH = 1440;
 
-function ResponsiveSection({ children, fallbackHeight }: { children: ReactNode; fallbackHeight: number }) {
+const siteCopy = {
+  heroTagline: "退屈な日々が、歌声で動き出す。",
+  heroQuote: "A cappella genie Arnie is calling...",
+  conceptTitle: "「願いを叶えるのは、魔法だけじゃない。」",
+  conceptDescription: "アカペラ魔人アーニーと、声が導く不思議な世界へ。",
+  conceptEnglish: "harmony transforms the indigo night",
+  date: "2026.09.18",
+  weekday: "FRI",
+  venue: "座・高円寺2",
+  venueEnglish: "(Za-Koenji 2)",
+  address: "〒166-0002 東京都杉並区高円寺北2丁目1-2",
+  access: "JR総武線「高円寺」駅から徒歩5分",
+  doorStartCompact: "16:00 / 17:00",
+  doorStart: "OPEN 16:00 / START 17:00",
+  preConcert: "PRE-CONCERT　16:00–17:00",
+  studentPrice: "学生 500円",
+  generalPrice: "一般 1,000円",
+  storyBefore: "バイトばかりで、変わらない毎日に少し退屈していた大学生のつばさ。ある日、道ばたであまりにもベタな魔法のランプを見つけてしまう。気になってこすってみると、現れたのは自称・アカペラ魔人のアーニーだった。",
+  storyHighlight: "「願いを一つかなえてやる！ その前に、アカペラを聴いてくれ！」",
+  storyAfter: "願いをかなえると言いながら、次々とアカペラを聴かせてくるアーニー。歌声に心を動かされ、会話を重ねるうちに、つばさは自分が本当にかなえたい願いと向き合い始める。",
+} as const;
+
+function StoryText({ className, lineClassName = "leading-[1.8]" }: { className: string; lineClassName?: string }) {
+  return (
+    <p className={className}>
+      <span className={lineClassName}>{siteCopy.storyBefore}</span>
+      <span className={`font-['Geist:Bold','Noto_Sans_JP:Bold','Noto_Sans_JP:Regular',sans-serif] font-bold text-[#ffcf60] ${lineClassName}`}>{siteCopy.storyHighlight}</span>{" "}
+      <span className={lineClassName}>{siteCopy.storyAfter}</span>
+    </p>
+  );
+}
+
+function ResponsiveSection({ children, fallbackHeight, backgroundColor = "transparent", keepHeroBelowHeader = false }: { children: ReactNode; fallbackHeight: number; backgroundColor?: string; keepHeroBelowHeader?: boolean }) {
   const frameRef = useRef<HTMLDivElement>(null);
   const [viewportWidth, setViewportWidth] = useState(ARTBOARD_WIDTH);
   const [sectionHeight, setSectionHeight] = useState(fallbackHeight);
@@ -40,10 +69,14 @@ function ResponsiveSection({ children, fallbackHeight }: { children: ReactNode; 
   }, []);
 
   const scale = Math.min(1, viewportWidth / ARTBOARD_WIDTH);
+  const scaledHeight = sectionHeight * scale;
+  const sectionStyle = keepHeroBelowHeader
+    ? { height: `calc(${scaledHeight}px + var(--hero-header-inset))`, paddingTop: "var(--hero-header-inset)", backgroundColor }
+    : { height: scaledHeight, backgroundColor };
 
   return (
-    <div className="overflow-hidden" style={{ height: sectionHeight * scale }}>
-      <div className="mx-auto" style={{ width: ARTBOARD_WIDTH * scale }}>
+    <div className={`flex w-full justify-center overflow-hidden ${keepHeroBelowHeader ? "responsive-hero-section" : ""}`} style={sectionStyle}>
+      <div style={{ width: ARTBOARD_WIDTH * scale }}>
         <div ref={frameRef} style={{ transform: `scale(${scale})`, transformOrigin: "top left", width: ARTBOARD_WIDTH }}>
           {children}
         </div>
@@ -58,7 +91,7 @@ function HeroHeadlineWrapper() {
       <div className="h-[161px] relative shrink-0 w-[419.271px]" data-name="heat-up-theme2-logo">
         <img alt="" className="absolute inset-0 max-w-none object-cover pointer-events-none size-full" src={imgHeatUpTheme2Logo} />
       </div>
-      <p className="[word-break:break-word] font-['Geist:Light','Noto_Sans_JP:Light',sans-serif] font-light leading-[normal] relative shrink-0 text-[20px] text-[rgba(255,255,255,0.8)] whitespace-nowrap">退屈な日々が、歌声で動き出す。</p>
+      <p className="[word-break:break-word] font-['Geist:Light','Noto_Sans_JP:Light',sans-serif] font-light leading-[normal] relative shrink-0 text-[20px] text-[rgba(255,255,255,0.8)] whitespace-nowrap">{siteCopy.heroTagline}</p>
     </div>
   );
 }
@@ -81,7 +114,7 @@ function MagicQuote() {
   return (
     <div className="content-stretch flex gap-[10px] items-center relative shrink-0" data-name="magic-quote">
       <QuoteHandStar />
-      <p className="[word-break:break-word] font-['Instrument_Serif:Italic',sans-serif] italic leading-[normal] relative shrink-0 text-[18px] text-[rgba(249,206,105,0.8)] whitespace-nowrap">A cappella genie Arnie is calling...</p>
+      <p className="[word-break:break-word] font-['Instrument_Serif:Italic',sans-serif] italic leading-[normal] relative shrink-0 text-[18px] text-[rgba(249,206,105,0.8)] whitespace-nowrap">{siteCopy.heroQuote}</p>
     </div>
   );
 }
@@ -91,8 +124,8 @@ function Frame2() {
     <div className="[word-break:break-word] content-stretch flex flex-col gap-[4px] items-start relative shrink-0 whitespace-nowrap" data-name="Frame">
       <p className="font-['Geist:Bold',sans-serif] font-bold leading-[normal] relative shrink-0 text-[#df9f3e] text-[10px]">DATE</p>
       <p className="font-['Outfit:ExtraBold',sans-serif] font-extrabold leading-[0] relative shrink-0 text-[18px] text-white">
-        <span className="leading-[normal]">{`2026.09.18 `}</span>
-        <span className="leading-[normal] text-[#ff3d77]">FRI</span>
+        <span className="leading-[normal]">{siteCopy.date}{" "}</span>
+        <span className="leading-[normal] text-[#ff3d77]">{siteCopy.weekday}</span>
       </p>
     </div>
   );
@@ -102,7 +135,7 @@ function Frame3() {
   return (
     <div className="[word-break:break-word] content-stretch flex flex-col gap-[4px] items-start leading-[normal] relative shrink-0 whitespace-nowrap" data-name="Frame">
       <p className="font-['Geist:Bold',sans-serif] font-bold relative shrink-0 text-[#df9f3e] text-[10px]">VENUE</p>
-      <p className="font-['Geist:ExtraBold','Noto_Sans_JP:Black',sans-serif] font-extrabold relative shrink-0 text-[16px] text-white">座・高円寺2 (Za-Koenji 2)</p>
+      <p className="font-['Geist:ExtraBold','Noto_Sans_JP:Black',sans-serif] font-extrabold relative shrink-0 text-[16px] text-white">{siteCopy.venue} {siteCopy.venueEnglish}</p>
     </div>
   );
 }
@@ -111,7 +144,7 @@ function Frame4() {
   return (
     <div className="[word-break:break-word] content-stretch flex flex-col gap-[4px] items-start leading-[normal] relative shrink-0 whitespace-nowrap" data-name="Frame">
       <p className="font-['Geist:Bold',sans-serif] font-bold relative shrink-0 text-[#df9f3e] text-[10px]">DOOR / START</p>
-      <p className="font-['Outfit:ExtraBold',sans-serif] font-extrabold relative shrink-0 text-[18px] text-white">16:00 / 17:00</p>
+      <p className="font-['Outfit:ExtraBold',sans-serif] font-extrabold relative shrink-0 text-[18px] text-white">{siteCopy.doorStartCompact}</p>
     </div>
   );
 }
@@ -317,10 +350,9 @@ function HeroIllustrationPanel() {
 
 function HeroSection() {
   return (
-    <div className="content-stretch flex h-[920px] items-center overflow-clip relative shrink-0 w-full" data-name="hero-section" id="top">
+    <div className="content-stretch flex h-[920px] items-center overflow-clip relative shrink-0 w-full" data-name="hero-section">
       <div className="absolute h-[920px] left-0 top-0 w-[1440px]" data-name="hero-bg">
         <div aria-hidden className="absolute inset-0 pointer-events-none">
-          <img alt="" className="absolute max-w-none object-cover size-full" src={imgHeroBg} />
           <div className="absolute bg-gradient-to-r from-[rgba(6,7,19,0.93)] inset-0 to-[rgba(6,7,19,0)] via-1/2 via-[rgba(6,7,19,0.8)]" />
         </div>
       </div>
@@ -534,8 +566,8 @@ function ConceptHeadlineGroup() {
   return (
     <div className="content-stretch flex flex-col gap-[24px] items-center relative shrink-0 w-full" data-name="concept-headline-group">
       <div className="absolute h-[200px] left-[200px] top-[-40px] w-[1040px]" style={{ backgroundImage: "url(\"data:image/svg+xml;utf8,<svg viewBox='0 0 1040 200' xmlns='http://www.w3.org/2000/svg' preserveAspectRatio='none'><rect x='0' y='0' height='100%' width='100%' fill='url(%23grad)' opacity='1'/><defs><radialGradient id='grad' gradientUnits='userSpaceOnUse' cx='0' cy='0' r='10' gradientTransform='matrix(52 0 0 10 520 100)'><stop stop-color='rgba(127,0,255,0.1451)' offset='0'/><stop stop-color='rgba(7,8,26,0)' offset='1'/></radialGradient></defs></svg>\")" }} data-name="purple-mist" />
-      <p className="[word-break:break-word] font-['Geist:ExtraBold','Noto_Sans_JP:Black',sans-serif] font-extrabold leading-[1.4] min-w-full relative shrink-0 text-[44px] text-center text-white w-[min-content]">「願いを叶えるのは、魔法だけじゃない。」</p>
-      <p className="[word-break:break-word] font-['Geist:Regular','Noto_Sans_JP:Regular',sans-serif] font-normal leading-[1.6] min-w-full relative shrink-0 text-[#8e93b3] text-[24px] text-center w-[min-content]">アカペラ魔人アーニーと、声が導く不思議な世界へ。</p>
+      <p className="[word-break:break-word] font-['Geist:ExtraBold','Noto_Sans_JP:Black',sans-serif] font-extrabold leading-[1.4] min-w-full relative shrink-0 text-[44px] text-center text-white w-[min-content]">{siteCopy.conceptTitle}</p>
+      <p className="[word-break:break-word] font-['Geist:Regular','Noto_Sans_JP:Regular',sans-serif] font-normal leading-[1.6] min-w-full relative shrink-0 text-[#8e93b3] text-[24px] text-center w-[min-content]">{siteCopy.conceptDescription}</p>
     </div>
   );
 }
@@ -632,7 +664,7 @@ function Frame6() {
           </svg>
         </div>
       </div>
-      <p className="[word-break:break-word] font-['Instrument_Serif:Italic',sans-serif] italic leading-[normal] relative shrink-0 text-[#df9f3e] text-[22px] whitespace-nowrap">harmony transforms the indigo night</p>
+      <p className="[word-break:break-word] font-['Instrument_Serif:Italic',sans-serif] italic leading-[normal] relative shrink-0 text-[#df9f3e] text-[22px] whitespace-nowrap">{siteCopy.conceptEnglish}</p>
       <div className="h-0 relative shrink-0 w-[80px]" data-name="Line">
         <div className="absolute inset-[-2px_0_0_0]">
           <svg className="block size-full" fill="none" height="2" preserveAspectRatio="none" viewBox="0 0 80 2" width="80">
@@ -681,8 +713,8 @@ function Frame10() {
       <div aria-hidden className="absolute border-[rgba(255,255,255,0.08)] border-b border-solid inset-0 pointer-events-none" />
       <p className="[word-break:break-word] font-['Geist:Bold',sans-serif] font-bold leading-[normal] relative shrink-0 text-[#df9f3e] text-[14px] w-[120px]">DATE</p>
       <p className="[word-break:break-word] font-['Outfit:Bold',sans-serif] font-bold leading-[0] relative shrink-0 text-[18px] text-white whitespace-nowrap">
-        <span className="leading-[normal]">{`2026.09.18 `}</span>
-        <span className="leading-[normal] text-[#ff3d77]">FRI</span>
+        <span className="leading-[normal]">{siteCopy.date}{" "}</span>
+        <span className="leading-[normal] text-[#ff3d77]">{siteCopy.weekday}</span>
       </p>
     </div>
   );
@@ -691,9 +723,9 @@ function Frame10() {
 function Frame12() {
   return (
     <div className="[word-break:break-word] content-stretch flex flex-col gap-[4px] items-start leading-[normal] relative shrink-0 whitespace-nowrap" data-name="Frame">
-      <p className="font-['Geist:Bold','Noto_Sans_JP:Bold',sans-serif] font-bold relative shrink-0 text-[18px] text-white">座・高円寺2</p>
-      <p className="font-['Geist:Regular','Noto_Sans_JP:Regular',sans-serif] font-normal relative shrink-0 text-[#8e93b3] text-[13px]">〒166-0002 東京都杉並区高円寺北2丁目1-2</p>
-      <p className="font-['Geist:Regular','Noto_Sans_JP:Regular',sans-serif] font-normal relative shrink-0 text-[#c2c3d2] text-[13px]">JR総武線「高円寺」駅から徒歩5分</p>
+      <p className="font-['Geist:Bold','Noto_Sans_JP:Bold',sans-serif] font-bold relative shrink-0 text-[18px] text-white">{siteCopy.venue}</p>
+      <p className="font-['Geist:Regular','Noto_Sans_JP:Regular',sans-serif] font-normal relative shrink-0 text-[#8e93b3] text-[13px]">{siteCopy.address}</p>
+      <p className="font-['Geist:Regular','Noto_Sans_JP:Regular',sans-serif] font-normal relative shrink-0 text-[#c2c3d2] text-[13px]">{siteCopy.access}</p>
     </div>
   );
 }
@@ -714,8 +746,8 @@ function Frame13() {
       <div aria-hidden className="absolute border-[rgba(255,255,255,0.08)] border-b border-solid inset-0 pointer-events-none" />
       <p className="[word-break:break-word] font-['Geist:Bold',sans-serif] font-bold leading-[normal] relative shrink-0 text-[#df9f3e] text-[14px] w-[120px]">TIME</p>
       <div className="flex flex-col gap-[5px]">
-        <p className="[word-break:break-word] font-['Geist:Bold',sans-serif] font-bold leading-[normal] relative shrink-0 text-[18px] text-white whitespace-nowrap">OPEN 16:00 / START 17:00</p>
-        <p className="font-['Geist:Regular','Noto_Sans_JP:Regular',sans-serif] text-[13px] text-[#c2c3d2]">PRE-CONCERT　16:00–17:00</p>
+        <p className="[word-break:break-word] font-['Geist:Bold',sans-serif] font-bold leading-[normal] relative shrink-0 text-[18px] text-white whitespace-nowrap">{siteCopy.doorStart}</p>
+        <p className="font-['Geist:Regular','Noto_Sans_JP:Regular',sans-serif] text-[13px] text-[#c2c3d2]">{siteCopy.preConcert}</p>
       </div>
     </div>
   );
@@ -724,8 +756,8 @@ function Frame13() {
 function Frame15() {
   return (
     <div className="[word-break:break-word] content-stretch flex font-['Geist:Bold','Noto_Sans_JP:Bold',sans-serif] font-bold gap-[24px] items-center leading-[normal] relative shrink-0 text-[18px] text-white whitespace-nowrap" data-name="Frame">
-      <p className="relative shrink-0">学生 500円</p>
-      <p className="relative shrink-0">一般 1,000円</p>
+      <p className="relative shrink-0">{siteCopy.studentPrice}</p>
+      <p className="relative shrink-0">{siteCopy.generalPrice}</p>
     </div>
   );
 }
@@ -947,11 +979,7 @@ function NarrativeContent() {
   return (
     <div className="content-stretch flex flex-[1_0_0] flex-col gap-[40px] items-start min-w-px relative" data-name="narrative-content">
       <Frame16 />
-      <p className="[word-break:break-word] font-['Geist:Regular','Noto_Sans_JP:Bold','Noto_Sans_JP:Regular',sans-serif] font-normal leading-[0] relative shrink-0 text-[#8e93b3] text-[16px] w-full">
-        <span className="leading-[1.8]">バイトばかりで、変わらない毎日に少し退屈していた大学生のつばさ。ある日、道ばたであまりにもベタな魔法のランプを見つけてしまう。気になってこすってみると、現れたのは自称・アカペラ魔人のアーニーだった。</span>
-        <span className="font-['Geist:Bold','Noto_Sans_JP:Bold','Noto_Sans_JP:Regular',sans-serif] font-bold leading-[1.8] text-[#ffcf60]">「願いを一つかなえてやる！ その前に、アカペラを聴いてくれ！」</span>{" "}
-        <span className="leading-[1.8]">願いをかなえると言いながら、次々とアカペラを聴かせてくるアーニー。歌声に心を動かされ、会話を重ねるうちに、つばさは自分が本当にかなえたい願いと向き合い始める。</span>
-      </p>
+      <StoryText className="[word-break:break-word] font-['Geist:Regular','Noto_Sans_JP:Bold','Noto_Sans_JP:Regular',sans-serif] font-normal leading-[0] relative shrink-0 text-[#8e93b3] text-[16px] w-full" />
     </div>
   );
 }
@@ -970,71 +998,170 @@ function AboutWorldSection() {
   );
 }
 
-function Frame22() {
+function MobileStar({ src, className = "" }: { src: string; className?: string }) {
   return (
-    <div className="[word-break:break-word] content-stretch flex flex-col gap-[12px] items-start leading-[normal] relative shrink-0 whitespace-nowrap" data-name="Frame">
-      <p className="font-['Outfit:Black',sans-serif] font-black relative shrink-0 text-[20px] text-white">ANIT SUMMER LIVE 2026</p>
-      <p className="font-['Geist:Regular','Noto_Sans_JP:Regular',sans-serif] font-normal relative shrink-0 text-[#8e93b3] text-[12px]">「願いを叶えるのは、魔法だけじゃない。」</p>
+    <img
+      src={src}
+      alt=""
+      aria-hidden
+      data-interactive-star="true"
+      className={`pointer-events-none absolute object-contain ${className}`}
+      style={{ pointerEvents: "auto", cursor: "pointer", touchAction: "manipulation" }}
+    />
+  );
+}
+
+function MobileConceptStarfield() {
+  return (
+    <div aria-hidden className="relative h-28 w-full shrink-0">
+      <MobileStar src={imgRectangle1} className="left-[8%] top-12 size-4 opacity-65" />
+      <MobileStar src={imgRectangle} className="left-[20%] top-2 size-3 opacity-55" />
+      <MobileStar src={imgRectangle3} className="left-[31%] top-20 size-5 opacity-50" />
+      <MobileStar src={imgRectangle2} className="left-[43%] top-8 size-[14px] opacity-65" />
+      <MobileStar src={imgRectangle1} className="left-[55%] top-16 size-[18px] opacity-75" />
+      <MobileStar src={imgRectangle} className="left-[67%] top-1 size-3 opacity-50" />
+      <MobileStar src={imgRectangle3} className="left-[76%] top-20 size-4 opacity-60" />
+      <MobileStar src={imgRectangle2} className="left-[89%] top-9 size-3 opacity-55" />
     </div>
   );
 }
 
-function SocialLink({ href, icon, label, iconClassName }: { href: string; icon: string; label: string; iconClassName: string }) {
+function MobileSectionStarfield({ mirrored = false }: { mirrored?: boolean }) {
   return (
-    <a className="content-stretch flex items-center justify-center p-[10px] relative rounded-full shrink-0 size-[46px] transition-opacity hover:opacity-70" href={href} target="_blank" rel="noreferrer" aria-label={label}>
-      <div aria-hidden className="absolute border border-[rgba(255,255,255,0.13)] border-solid inset-0 pointer-events-none rounded-[100px]" />
-      <img className={`relative shrink-0 object-contain ${iconClassName}`} src={icon} alt="" />
-    </a>
-  );
-}
-
-function Frame23() {
-  return (
-    <div className="content-stretch flex gap-[12px] items-center relative shrink-0" data-name="social-links">
-      <SocialLink href={instagramUrl} icon={instagramIcon} label="Instagram" iconClassName="size-[22px]" />
-      <SocialLink href={xUrl} icon={xIcon} label="X（旧Twitter）" iconClassName="size-[20px]" />
+    <div aria-hidden className="relative h-16 w-full shrink-0">
+      <MobileStar src={mirrored ? imgRectangle3 : imgRectangle1} className="left-[14%] top-7 size-4 opacity-55" />
+      <MobileStar src={imgRectangle} className="left-[31%] top-1 size-3 opacity-45" />
+      <MobileStar src={imgRectangle2} className="left-[49%] top-10 size-[13px] opacity-60" />
+      <MobileStar src={imgRectangle1} className="left-[66%] top-4 size-[17px] opacity-65" />
+      <MobileStar src={mirrored ? imgRectangle1 : imgRectangle3} className="left-[82%] top-9 size-4 opacity-50" />
     </div>
   );
 }
 
-function Frame21() {
+function MobileHeroInfo() {
   return (
-    <div className="content-stretch flex items-center justify-between relative shrink-0 w-full" data-name="Frame">
-      <Frame22 />
-      <Frame23 />
+    <div className="w-full rounded-2xl border border-white/[0.08] bg-[#12142e]/90 p-5 text-left backdrop-blur-sm">
+      <div className="grid grid-cols-2 gap-x-5 gap-y-4">
+        <div><p className="font-['Geist:Bold',sans-serif] text-[10px] font-bold text-[#df9f3e]">DATE</p><p className="mt-1 font-['Outfit:ExtraBold',sans-serif] text-base text-white">{siteCopy.date} <span className="text-[#ff3d77]">{siteCopy.weekday}</span></p></div>
+        <div><p className="font-['Geist:Bold',sans-serif] text-[10px] font-bold text-[#df9f3e]">VENUE</p><p className="mt-1 font-['Geist:ExtraBold','Noto_Sans_JP:Black',sans-serif] text-sm font-extrabold text-white">{siteCopy.venue}</p></div>
+        <div className="col-span-2 border-t border-white/[0.08] pt-4"><p className="font-['Geist:Bold',sans-serif] text-[10px] font-bold text-[#df9f3e]">DOOR / START</p><p className="mt-1 font-['Outfit:ExtraBold',sans-serif] text-base text-white">{siteCopy.doorStartCompact}</p></div>
+      </div>
     </div>
   );
 }
 
-function Frame27() {
+// 同じトップページコンポーネントのモバイル用レイアウト。素材・文言・リンクはデスクトップ版と共通。
+function TopHeroSection() {
   return (
-    <div className="content-stretch flex items-center justify-between pt-[20px] relative shrink-0 w-full" data-name="Frame">
-      <div aria-hidden className="absolute border-[rgba(255,255,255,0.03)] border-solid border-t inset-0 pointer-events-none" />
-      <p className="[word-break:break-word] font-['Geist:Regular',sans-serif] font-normal leading-[normal] relative shrink-0 text-[#8e93b3] text-[11px] whitespace-nowrap">© 2026 ANIT. All Rights Reserved.</p>
-      <p className="[word-break:break-word] font-['Instrument_Serif:Italic',sans-serif] italic leading-[normal] relative shrink-0 text-[#df9f3e] text-[13px] whitespace-nowrap">Theme: Heat up!</p>
-    </div>
+    <>
+      <section className="relative w-full overflow-hidden md:hidden">
+        <div className="relative h-[100svh] overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-b from-[#060713]/40 via-[#060713]/65 to-[#060713]" />
+          <MobileStar src={imgRectangle1} className="left-[18%] top-[9%] size-5 opacity-80" />
+          <MobileStar src={imgRectangle2} className="right-[24%] top-[17%] size-4 opacity-80" />
+          <MobileStar src={imgRectangle3} className="right-[17%] top-[31%] size-6 opacity-55" />
+          <MobileStar src={imgRectangle2} className="left-[22%] top-[70%] size-3 opacity-65" />
+          <MobileStar src={imgRectangle1} className="bottom-[10%] right-[28%] size-[18px] opacity-70" />
+          <div className="absolute left-1/2 top-1/2 w-[min(94vw,380px)] -translate-x-1/2 -translate-y-1/2">
+            <img src={imgHeatUpTheme2Logo} alt="Heat up!" className="h-auto w-full object-contain" />
+            <p className="mt-2 pl-8 font-['Geist:Light','Noto_Sans_JP:Light',sans-serif] text-sm text-white/80">{siteCopy.heroTagline}</p>
+            <p className="mt-2 pl-8 font-['Instrument_Serif:Italic',serif] text-sm italic text-[#f9ce69]/85">{siteCopy.heroQuote}</p>
+          </div>
+        </div>
+      </section>
+      <div className="hidden w-full md:block"><ResponsiveSection fallbackHeight={920} keepHeroBelowHeader><HeroSection /></ResponsiveSection></div>
+    </>
   );
 }
 
-function Footer() {
+function TopConceptSection() {
   return (
-    <div className="bg-[#04050e] content-stretch flex flex-col gap-[40px] items-start pb-[48px] pt-[80px] px-[80px] relative shrink-0 w-full" data-name="footer">
-      <div aria-hidden className="absolute border-[rgba(255,255,255,0.06)] border-solid border-t inset-0 pointer-events-none" />
-      <Frame21 />
-      <Frame27 />
+    <>
+      <section className="relative flex w-full flex-col items-center gap-7 border-y border-white/[0.08] bg-[#07081a] px-5 py-14 text-center md:hidden">
+        <MobileHeroInfo />
+        <MobileConceptStarfield />
+        <div className="flex items-center gap-2"><MobileStar src={imgRectangle1} className="relative size-4" /><p className="text-[10px] font-bold tracking-[0.12em] text-[#f9ce69]">CREATIVE CONCEPT</p><MobileStar src={imgRectangle3} className="relative size-4" /></div>
+        <div><p className="font-['Geist:ExtraBold','Noto_Sans_JP:Bold',sans-serif] text-[23px] leading-[1.45] text-white">{siteCopy.conceptTitle}</p><p className="mt-4 font-['Geist:Regular','Noto_Sans_JP:Regular',sans-serif] text-sm leading-6 text-[#8e93b3]">{siteCopy.conceptDescription}</p></div>
+        <p className="font-['Instrument_Serif:Italic',serif] text-base italic text-[#df9f3e]">{siteCopy.conceptEnglish}</p>
+      </section>
+      <div className="hidden w-full md:block"><ResponsiveSection fallbackHeight={520} backgroundColor="#07081a"><TaglineConceptSection /></ResponsiveSection></div>
+    </>
+  );
+}
+
+function TopDetailsSection() {
+  return (
+    <>
+      <section className="relative w-full bg-[#060713] px-5 py-14 md:hidden">
+        <MobileSectionStarfield />
+        <div className="border-l-[3px] border-[#ff6b74] pl-3"><p className="font-['Outfit:ExtraBold',sans-serif] text-[22px] text-white">CONCERT DETAILS</p><p className="mt-1 text-[11px] text-[#8e93b3]">公演概要</p></div>
+        <div className="mt-8">
+          <div className="border-b border-white/[0.08] py-4"><p className="font-['Geist:Bold',sans-serif] text-xs font-bold text-[#df9f3e]">DATE</p><p className="mt-2 font-['Outfit:Bold',sans-serif] text-sm font-bold leading-6 text-white">{siteCopy.date} <span className="text-[#ff3d77]">{siteCopy.weekday}</span></p></div>
+          <div className="border-b border-white/[0.08] py-4"><p className="font-['Geist:Bold',sans-serif] text-xs font-bold text-[#df9f3e]">VENUE</p><p className="mt-2 whitespace-pre-line font-['Geist:Bold','Noto_Sans_JP:Bold',sans-serif] text-sm font-bold leading-6 text-white">{siteCopy.venue}{"\n"}<span className="font-['Geist:Regular','Noto_Sans_JP:Regular',sans-serif] font-normal text-[#8e93b3]">{siteCopy.address}</span>{"\n"}<span className="font-['Geist:Regular','Noto_Sans_JP:Regular',sans-serif] font-normal text-[#c2c3d2]">{siteCopy.access}</span></p></div>
+          <div className="border-b border-white/[0.08] py-4"><p className="font-['Geist:Bold',sans-serif] text-xs font-bold text-[#df9f3e]">TIME</p><p className="mt-2 whitespace-pre-line font-['Geist:Bold',sans-serif] text-sm font-bold leading-6 text-white">{siteCopy.doorStart}{"\n"}<span className="font-['Geist:Regular','Noto_Sans_JP:Regular',sans-serif] font-normal text-[#c2c3d2]">{siteCopy.preConcert}</span></p></div>
+          <div className="border-b border-white/[0.08] py-4"><p className="font-['Geist:Bold',sans-serif] text-xs font-bold text-[#df9f3e]">PRICE</p><p className="mt-2 font-['Geist:Bold','Noto_Sans_JP:Bold',sans-serif] text-sm font-bold leading-6 text-white">{siteCopy.studentPrice}　/　{siteCopy.generalPrice}</p></div>
+        </div>
+      </section>
+      <div className="hidden w-full md:block"><ResponsiveSection fallbackHeight={720} backgroundColor="#060713"><EventDetailsSection /></ResponsiveSection></div>
+    </>
+  );
+}
+
+function TopStorySection() {
+  return (
+    <>
+      <section className="relative w-full bg-[#0b0c1e] px-5 py-14 md:hidden">
+        <div className="overflow-hidden rounded-2xl bg-[#1f213a]"><img src={imgDarkBadgeLogo} alt="ANIT Summer Live 2026 エンブレム" className="h-[220px] w-full object-cover" /></div>
+        <MobileSectionStarfield mirrored />
+        <div className="mt-9"><p className="font-['Geist:Bold',sans-serif] text-[11px] font-bold text-[#ff3d77]">THE STORY</p><p className="mt-2 font-['Outfit:ExtraBold',sans-serif] text-[26px] text-white">ABOUT THE MAGIC</p><div className="mt-3 h-0.5 w-10 bg-[#df9f3e]" /><StoryText className="mt-6 font-['Geist:Regular','Noto_Sans_JP:Bold','Noto_Sans_JP:Regular',sans-serif] text-sm leading-7 text-[#b5b7cd]" lineClassName="" /></div>
+      </section>
+      <div className="hidden w-full md:block"><ResponsiveSection fallbackHeight={800} backgroundColor="#0b0c1e"><AboutWorldSection /></ResponsiveSection></div>
+    </>
+  );
+}
+
+function TopTicketSection() {
+  return (
+    <>
+      <div className="w-full md:hidden"><TicketCtaSection /></div>
+      <div className="hidden w-full md:block"><ResponsiveSection fallbackHeight={240} backgroundColor="#080910"><TicketCtaSection /></ResponsiveSection></div>
+    </>
+  );
+}
+
+function TopFooterSection() {
+  return (
+    <>
+      <div className="w-full md:hidden"><SiteFooter /></div>
+      <div className="hidden w-full md:block"><ResponsiveSection fallbackHeight={248} backgroundColor="#04050e"><SiteFooter /></ResponsiveSection></div>
+    </>
+  );
+}
+
+function FixedHeroBackdrop() {
+  return (
+    <div aria-hidden className="pointer-events-none fixed inset-0 z-0 flex justify-center overflow-hidden bg-[#060713]">
+      <div className="h-full w-full max-w-[1440px] overflow-hidden">
+        <img src={imgHeroBg} alt="" className="size-full object-cover opacity-80" />
+      </div>
     </div>
   );
 }
 
 export default function AnitSummerLive2026WebsiteMockup() {
   return (
-    <div className="bg-[#060713] content-stretch flex flex-col items-start relative size-full" data-name="anit-summer-live-2026-website-mockup">
-      <ResponsiveSection fallbackHeight={920}><HeroSection /></ResponsiveSection>
-      <ResponsiveSection fallbackHeight={520}><TaglineConceptSection /></ResponsiveSection>
-      <ResponsiveSection fallbackHeight={720}><EventDetailsSection /></ResponsiveSection>
-      <ResponsiveSection fallbackHeight={800}><AboutWorldSection /></ResponsiveSection>
-      <ResponsiveSection fallbackHeight={240}><TicketCtaSection /></ResponsiveSection>
-      <ResponsiveSection fallbackHeight={248}><Footer /></ResponsiveSection>
-    </div>
+    <>
+      <FixedHeroBackdrop />
+      <div id="top" className="relative z-10 flex min-h-screen w-full flex-col items-start overflow-x-hidden" data-name="anit-summer-live-2026-website-mockup">
+        <TopHeroSection />
+        <div className="relative z-10 -mt-px w-full bg-[#060713]">
+          <TopConceptSection />
+          <TopDetailsSection />
+          <TopStorySection />
+          <TopTicketSection />
+          <TopFooterSection />
+        </div>
+      </div>
+    </>
   );
 }

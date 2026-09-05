@@ -1,25 +1,20 @@
-import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
-import TicketCtaSection from "../components/TicketCtaSection";
-import imgStar1 from "../assets/logo/stars/star4.png";
-import imgStar2 from "../assets/logo/stars/star3.png";
-import imgStar3 from "../assets/logo/stars/star2.png";
+import SubpageLayout from "../components/SubpageLayout";
 import imgStarCard from "../assets/logo/stars/star1.png";
-import instagramIcon from "../assets/social/instagram.svg";
-import xIcon from "../assets/social/x-white.png";
-import soraMoyouImage from "../assets/bands/1787609579375 - Haruka OTA.jpg";
-import damaDeFeroceImage from "../assets/bands/Damade - Naoyuki YOSHIMOTO.jpg";
-import lilyImage from "../assets/bands/IMG_1074 - Mitsuki MAEDA.jpeg";
-import fritzImage from "../assets/bands/IMG_6156 - Sayuna IMAI.jpeg";
-import leUnImage from "../assets/bands/IMG_6236 - Kano MUTOU.jpeg";
-import fireworkMoriImage from "../assets/bands/IMG_6384 - Ichiha KOBAYASHI.jpeg";
-import sumireImage from "../assets/bands/IMG_8574 - Daiki MORI.jpeg";
-import yohiraImage from "../assets/bands/よひら1 - Naoyuki YOSHIMOTO.jpg";
+import SocialLinks from "../components/SocialLinks";
+import soraMoyouImage from "../assets/bands/1787609579375 - Haruka OTA.webp";
+import damaDeFeroceImage from "../assets/bands/Damade - Naoyuki YOSHIMOTO.webp";
+import lilyImage from "../assets/bands/IMG_1074 - Mitsuki MAEDA.webp";
+import fritzImage from "../assets/bands/IMG_6156 - Sayuna IMAI.webp";
+import leUnImage from "../assets/bands/IMG_6236 - Kano MUTOU.webp";
+import fireworkMoriImage from "../assets/bands/IMG_6384 - Ichiha KOBAYASHI.webp";
+import sumireImage from "../assets/bands/IMG_8574 - Daiki MORI.webp";
+import yohiraImage from "../assets/bands/よひら1 - Naoyuki YOSHIMOTO.webp";
 
 type SetlistItem = { artist: string; song: string }
 type Band = { name: string; description: string; setlist: SetlistItem[]; image?: string; imageFit?: "cover" | "contain"; xUrl?: string; instagramUrl?: string }
 type PreStageBand = { name: string; xUrl?: string; instagramUrl?: string }
 type AllCastSong = { timing: string; song: string; artist: string }
+type SectionHeadingProps = { title: string; subtitle: string; accent: "pink" | "gold"; compact?: boolean }
 
 // 本編：写真・紹介文（100字以内）・セットリスト・SNS URLが決まり次第、ここを書き換える。
 const mainStageBands: Band[] = [
@@ -49,7 +44,7 @@ const mainStageBands: Band[] = [
     description: "名前の由来は聞かないで！3年生同期ヤロバンのファイヤーワーク森です。野郎ばかりの見た目からは想像のつかないほど、繊細で豊かなハーモニーをお届けします。ぜひお楽しみください！",
     setlist: [{ artist: "back number", song: "幕が上がる" }, { artist: "Mr.Children", song: "HANABI" }],
     image: fireworkMoriImage,
-    imageFit: "cover",
+    imageFit: "contain",
     xUrl: "https://x.com/firework26_anit?s=11",
   },
   {
@@ -101,11 +96,26 @@ const allCastSongs: AllCastSong[] = [
   { timing: "ENDING", song: "RPG", artist: "SEKAI NO OWARI" },
 ]
 
+function SectionHeading({ title, subtitle, accent, compact = false }: SectionHeadingProps) {
+  const titleClassName = compact
+    ? "font-['Outfit:ExtraBold',sans-serif] text-[25px] font-extrabold leading-none text-white md:text-[30px]"
+    : "font-['Outfit:ExtraBold',sans-serif] text-[27px] font-extrabold leading-none whitespace-nowrap text-white md:text-[36px]"
+  const lineClassName = accent === "gold" ? "h-0.5 w-[104px] bg-[#f9ce69]" : compact ? "h-0.5 w-[60px] bg-[#ff3d77]" : "h-0.5 w-[48px] bg-[#ff3d77]"
+
+  return (
+    <div className="flex w-full flex-col items-center gap-3">
+      <p className={titleClassName}>{title}</p>
+      <p className="text-[14px] font-semibold text-[#c2c3d2]">{subtitle}</p>
+      <div className={lineClassName} />
+    </div>
+  )
+}
+
 function BandCard({ name, description, setlist, image, imageFit = "contain", xUrl, instagramUrl }: Band) {
   return (
-    <article className="relative flex h-[580px] flex-col overflow-hidden rounded-2xl border border-[rgba(249,206,105,0.27)] bg-[rgba(18,20,46,0.8)]">
+    <article className="relative flex h-[560px] flex-col overflow-hidden rounded-2xl border border-[rgba(249,206,105,0.27)] bg-[rgba(18,20,46,0.8)] md:h-[580px]">
       {/* Photo area */}
-      <div className="bg-[#1f213a] h-[220px] flex items-center justify-center relative w-full shrink-0">
+      <div className="bg-[#1f213a] h-[210px] flex items-center justify-center relative w-full shrink-0 md:h-[220px]">
         {image ? (
           <img src={image} alt={`${name}のバンド画像`} className={`size-full ${imageFit === "cover" ? "object-cover" : "object-contain"}`} />
         ) : (
@@ -126,7 +136,7 @@ function BandCard({ name, description, setlist, image, imageFit = "contain", xUr
           </>
         )}
       </div>
-      <div className="flex flex-1 flex-col gap-3 p-6">
+      <div className="flex flex-1 flex-col gap-3 p-5 md:p-6">
         <p
           className="text-[20px] font-bold leading-none text-white"
           style={{ fontFamily: "'Geist', sans-serif" }}
@@ -143,7 +153,7 @@ function BandCard({ name, description, setlist, image, imageFit = "contain", xUr
           <p className="font-['Outfit:ExtraBold',sans-serif] text-[10px] font-extrabold tracking-[0.16em] text-[#f9ce69]">SET LIST</p>
           <ul className="mt-3 flex flex-col gap-2">
             {setlist.map(({ artist, song }, index) => (
-              <li key={`${artist}-${song}-${index}`} className="grid grid-cols-[1fr_auto] gap-4 text-[12px] leading-snug">
+                <li key={`${artist}-${song}-${index}`} className="grid grid-cols-[1fr_auto] gap-2 text-[11px] leading-snug md:gap-4 md:text-[12px]">
                 <span className="text-[#c2c3d2]">{artist}</span>
                 <span className="text-white">{song}</span>
               </li>
@@ -151,8 +161,7 @@ function BandCard({ name, description, setlist, image, imageFit = "contain", xUr
           </ul>
         </div>
         <div className={`mt-auto flex min-h-8 items-center gap-2 pt-3 ${xUrl || instagramUrl ? "border-t border-white/[0.08]" : ""}`}>
-            {instagramUrl && <a href={instagramUrl} target="_blank" rel="noreferrer" aria-label={`${name}のInstagram`} className="flex size-8 items-center justify-center rounded-full border border-white/[0.13] hover:opacity-70"><img src={instagramIcon} alt="" className="size-[14px]" /></a>}
-            {xUrl && <a href={xUrl} target="_blank" rel="noreferrer" aria-label={`${name}のX`} className="flex size-8 items-center justify-center rounded-full border border-white/[0.13] hover:opacity-70"><img src={xIcon} alt="" className="size-[13px] object-contain" /></a>}
+            <SocialLinks instagramUrl={instagramUrl} xUrl={xUrl} labelPrefix={name} size="compact" />
         </div>
       </div>
     </article>
@@ -173,10 +182,7 @@ function PreStageCard({ name, xUrl, instagramUrl }: PreStageBand) {
         <p className="min-w-0 text-[20px] font-bold leading-tight text-white" style={{ fontFamily: "'Geist', sans-serif" }}>
           {name}
         </p>
-        <div className="flex shrink-0 items-center gap-2">
-          {instagramUrl && <a href={instagramUrl} target="_blank" rel="noreferrer" aria-label={`${name}のInstagram`} className="flex size-8 items-center justify-center rounded-full border border-white/[0.13] hover:opacity-70"><img src={instagramIcon} alt="" className="size-[14px]" /></a>}
-          {xUrl && <a href={xUrl} target="_blank" rel="noreferrer" aria-label={`${name}のX`} className="flex size-8 items-center justify-center rounded-full border border-white/[0.13] hover:opacity-70"><img src={xIcon} alt="" className="size-[13px] object-contain" /></a>}
-        </div>
+        <div className="shrink-0"><SocialLinks instagramUrl={instagramUrl} xUrl={xUrl} labelPrefix={name} size="compact" /></div>
       </div>
     </article>
   )
@@ -184,82 +190,11 @@ function PreStageCard({ name, xUrl, instagramUrl }: PreStageBand) {
 
 export default function PerformingBandsPage() {
   return (
-    <div className="bg-[#060713] flex flex-col items-start min-h-full relative w-full">
-      <Navbar />
-
-      {/* Hero */}
-      <section
-        className="flex flex-col h-[420px] items-center justify-center overflow-hidden relative w-full shrink-0"
-        style={{
-          backgroundImage:
-            "linear-gradient(163.74deg, rgb(6,7,19) 25%, rgb(25,11,32) 50%, rgb(6,7,19) 75%)",
-        }}
-      >
-        {/* Magenta glow */}
-        <div
-          className="absolute opacity-20 pointer-events-none"
-          style={{
-            left: "50%",
-            transform: "translateX(-50%)",
-            top: 20,
-            width: 600,
-            height: 360,
-            backgroundImage:
-              "url(\"data:image/svg+xml;utf8,<svg viewBox='0 0 600 360' xmlns='http://www.w3.org/2000/svg' preserveAspectRatio='none'><rect x='0' y='0' height='100%' width='100%' fill='url(%23grad)' opacity='1'/><defs><radialGradient id='grad' gradientUnits='userSpaceOnUse' cx='0' cy='0' r='10' gradientTransform='matrix(30 0 0 18 300 180)'><stop stop-color='rgba(255,61,119,1)' offset='0'/><stop stop-color='rgba(128,31,60,0.5)' offset='0.7'/><stop stop-color='rgba(0,0,0,0)' offset='1'/></radialGradient></defs></svg>\")",
-          }}
-        />
-        {/* Decorative stars */}
-        <img
-          src={imgStar1}
-          alt=""
-          aria-hidden
-          className="absolute opacity-60 w-6 h-6 object-cover pointer-events-none"
-          style={{ left: "18%", top: 140, transform: "rotate(45deg)" }}
-        />
-        <img
-          src={imgStar2}
-          alt=""
-          aria-hidden
-          className="absolute opacity-50 w-[30px] h-[30px] object-cover pointer-events-none"
-          style={{ right: "8%", top: 85, transform: "rotate(-10deg)" }}
-        />
-        <img
-          src={imgStar3}
-          alt=""
-          aria-hidden
-          className="absolute opacity-40 w-[18px] h-[18px] object-cover pointer-events-none"
-          style={{ left: "31%", top: 280, transform: "rotate(15deg)" }}
-        />
-        {/* Titles */}
-        <div className="flex flex-col gap-4 items-center relative z-10">
-          <p
-            className="text-[48px] font-black text-white leading-none text-center"
-            style={{ fontFamily: "'Outfit', sans-serif" }}
-          >
-            PERFORMING BANDS
-          </p>
-          <p
-            className="text-[18px] font-semibold text-[#ff3d77] leading-none"
-            style={{ fontFamily: "'Geist', 'Noto Sans JP', sans-serif" }}
-          >
-            出演バンド
-          </p>
-        </div>
-      </section>
-
+    <SubpageLayout title="PERFORMING BANDS" subtitle="出演バンド" theme="pink">
       {/* Content */}
-      <section className="flex flex-col gap-14 items-center pb-[120px] pt-[80px] px-8 md:px-[120px] w-full">
+      <section className="mx-auto flex w-full max-w-[1440px] flex-col items-center gap-10 px-5 pb-20 pt-14 md:gap-14 md:px-[120px] md:pb-[120px] md:pt-[80px]">
         {/* Section heading */}
-        <div className="flex flex-col gap-3 items-center w-full">
-          <p
-            className="text-[36px] font-extrabold text-white leading-none whitespace-nowrap"
-            style={{ fontFamily: "'Outfit', sans-serif" }}
-          >
-            THE MAIN CONCERT
-          </p>
-          <p className="text-[14px] font-semibold text-[#c2c3d2]">本編</p>
-          <div className="h-0.5 w-[48px] bg-[#ff3d77]" />
-        </div>
+        <SectionHeading title="THE MAIN CONCERT" subtitle="本編" accent="pink" />
 
         {/* Band grid */}
         <div className="grid w-full grid-cols-1 gap-8 lg:grid-cols-2">
@@ -267,11 +202,7 @@ export default function PerformingBandsPage() {
         </div>
 
         {/* All-cast songs */}
-        <div className="mt-6 flex w-full flex-col items-center gap-3 border-t border-white/[0.1] pt-16">
-          <p className="font-['Outfit:ExtraBold',sans-serif] text-[30px] font-extrabold leading-none text-white">ALL-CAST SONGS</p>
-          <p className="text-[14px] font-semibold text-[#c2c3d2]">全体曲</p>
-          <div className="h-0.5 w-[60px] bg-[#ff3d77]" />
-        </div>
+        <div className="mt-3 w-full border-t border-white/[0.1] pt-12 md:mt-6 md:pt-16"><SectionHeading title="ALL-CAST SONGS" subtitle="全体曲" accent="pink" compact /></div>
         <div className="grid w-full max-w-[820px] grid-cols-1 gap-5 md:grid-cols-2">
           {allCastSongs.map(({ timing, song, artist }) => (
             <article key={timing} className="relative h-[150px] overflow-hidden rounded-2xl border border-[rgba(255,61,119,0.28)] bg-[rgba(36,18,46,0.56)] px-7 text-center">
@@ -283,19 +214,13 @@ export default function PerformingBandsPage() {
         </div>
 
         {/* Pre-stage lineup */}
-        <div className="mt-6 flex w-full flex-col items-center gap-3 border-t border-white/[0.1] pt-16">
-          <p className="font-['Outfit:ExtraBold',sans-serif] text-[30px] font-extrabold leading-none text-white">PRE-CONCERT</p>
-          <p className="text-[14px] font-semibold text-[#c2c3d2]">プレコンサート</p>
-          <div className="h-0.5 w-[104px] bg-[#f9ce69]" />
-        </div>
+        <div className="mt-3 w-full border-t border-white/[0.1] pt-12 md:mt-6 md:pt-16"><SectionHeading title="PRE-CONCERT" subtitle="プレコンサート" accent="gold" compact /></div>
         <div className="grid w-full grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {preStageBands.map((band) => <PreStageCard key={band.name} {...band} />)}
         </div>
 
       </section>
 
-      <TicketCtaSection />
-      <Footer />
-    </div>
+    </SubpageLayout>
   );
 }
