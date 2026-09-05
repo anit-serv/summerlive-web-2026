@@ -17,10 +17,12 @@ const introAssets = [lampImage, ...earlyFrames, ...risingFrames, smoke8WithBackd
 const FRAME_DURATION = 350
 const FINAL_FRAME_DURATION = FRAME_DURATION
 const SWIPE_DURATION = 2500
+const LAMP_LEAD_DURATION = FRAME_DURATION
 
 export default function LoadingIntro({ onComplete }: { onComplete: () => void }) {
   const [stage, setStage] = useState<Stage>('awakening')
-  const [frame, setFrame] = useState(0)
+  // 読み込み完了直後はランプだけを見せ、その後に煙1を出す。
+  const [frame, setFrame] = useState(-1)
   const [assetsReady, setAssetsReady] = useState(false)
   const [backdropStyle, setBackdropStyle] = useState<CSSProperties>({})
 
@@ -81,23 +83,24 @@ export default function LoadingIntro({ onComplete }: { onComplete: () => void })
     }
     if (!assetsReady) return
 
-    // 煙1〜8はすべて同じコマ間隔で進める。
-    const secondFrame = window.setTimeout(() => setFrame(1), FRAME_DURATION)
-    const thirdFrame = window.setTimeout(() => setFrame(2), FRAME_DURATION * 2)
-    const fourthFrame = window.setTimeout(() => setFrame(3), FRAME_DURATION * 3)
+    // ランプを先に見せたあと、煙1〜8をすべて同じコマ間隔で進める。
+    const firstFrame = window.setTimeout(() => setFrame(0), LAMP_LEAD_DURATION)
+    const secondFrame = window.setTimeout(() => setFrame(1), LAMP_LEAD_DURATION + FRAME_DURATION)
+    const thirdFrame = window.setTimeout(() => setFrame(2), LAMP_LEAD_DURATION + FRAME_DURATION * 2)
+    const fourthFrame = window.setTimeout(() => setFrame(3), LAMP_LEAD_DURATION + FRAME_DURATION * 3)
     const risingStart = window.setTimeout(() => {
       setStage('rising')
       setFrame(0)
-    }, FRAME_DURATION * 4)
-    const firstRise = window.setTimeout(() => setFrame(1), FRAME_DURATION * 5)
-    const secondRise = window.setTimeout(() => setFrame(2), FRAME_DURATION * 6)
-    const coverStart = window.setTimeout(() => setStage('covering'), FRAME_DURATION * 6 + FINAL_FRAME_DURATION)
-    const swipeStart = window.setTimeout(() => setStage('swiping'), FRAME_DURATION * 7 + FINAL_FRAME_DURATION)
+    }, LAMP_LEAD_DURATION + FRAME_DURATION * 4)
+    const firstRise = window.setTimeout(() => setFrame(1), LAMP_LEAD_DURATION + FRAME_DURATION * 5)
+    const secondRise = window.setTimeout(() => setFrame(2), LAMP_LEAD_DURATION + FRAME_DURATION * 6)
+    const coverStart = window.setTimeout(() => setStage('covering'), LAMP_LEAD_DURATION + FRAME_DURATION * 6 + FINAL_FRAME_DURATION)
+    const swipeStart = window.setTimeout(() => setStage('swiping'), LAMP_LEAD_DURATION + FRAME_DURATION * 7 + FINAL_FRAME_DURATION)
     // 煙8が画面の外まで抜け切った後にだけ前景レイヤーを外す。
-    const complete = window.setTimeout(onComplete, FRAME_DURATION * 7 + FINAL_FRAME_DURATION + SWIPE_DURATION)
+    const complete = window.setTimeout(onComplete, LAMP_LEAD_DURATION + FRAME_DURATION * 7 + FINAL_FRAME_DURATION + SWIPE_DURATION)
 
     return () => {
-      ;[secondFrame, thirdFrame, fourthFrame, risingStart, firstRise, secondRise, coverStart, swipeStart, complete].forEach(window.clearTimeout)
+      ;[firstFrame, secondFrame, thirdFrame, fourthFrame, risingStart, firstRise, secondRise, coverStart, swipeStart, complete].forEach(window.clearTimeout)
     }
   }, [assetsReady, onComplete])
 
