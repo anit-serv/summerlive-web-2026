@@ -37,6 +37,17 @@ html, body, #root { min-height: 100%; margin: 0; background: #060713; }
   --hero-header-inset: max(0px, calc(var(--header-height) + var(--header-content-gap) - min(11.111vw, 160px)));
 }
 
+.fixed-hero-backdrop__frame {
+  height: 100%;
+}
+
+@media (min-width: 768px) {
+  .fixed-hero-backdrop__frame {
+    /* 1440×920のヒーローと同じ比率・上部補正で、縦長画面での過拡大を防ぐ。 */
+    height: calc(min(63.889vw, 920px) + max(0px, calc(var(--header-height) + var(--header-content-gap) - min(11.111vw, 160px))));
+  }
+}
+
 @keyframes mobile-menu-fade-in {
   from { opacity: 0; }
   to { opacity: 1; }

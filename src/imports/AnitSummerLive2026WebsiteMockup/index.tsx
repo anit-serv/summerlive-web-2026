@@ -1141,7 +1141,7 @@ function TopFooterSection() {
 function FixedHeroBackdrop() {
   return (
     <div aria-hidden className="pointer-events-none fixed inset-0 z-0 flex justify-center overflow-hidden bg-[#060713]">
-      <div className="h-full w-full max-w-[1440px] overflow-hidden">
+      <div className="fixed-hero-backdrop__frame w-full max-w-[1440px] overflow-hidden">
         <img src={imgHeroBg} alt="" className="size-full object-cover opacity-80" />
       </div>
     </div>
