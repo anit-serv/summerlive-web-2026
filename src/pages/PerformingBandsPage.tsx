@@ -11,7 +11,7 @@ import sumireImage from "../assets/bands/IMG_8574 - Daiki MORI.webp";
 import yohiraImage from "../assets/bands/よひら1 - Naoyuki YOSHIMOTO.webp";
 
 type SetlistItem = { artist: string; song: string }
-type Band = { name: string; description: string; setlist: SetlistItem[]; image?: string; imageFit?: "cover" | "contain"; xUrl?: string; instagramUrl?: string }
+type Band = { name: string; description: string; setlist: SetlistItem[]; image?: string; imageFit?: "cover" | "contain"; xUrl?: string; instagramUrl?: string; youtubeUrl?: string }
 type PreStageBand = { name: string; xUrl?: string; instagramUrl?: string }
 type AllCastSong = { timing: string; song: string; artist: string }
 type SectionHeadingProps = { title: string; subtitle: string; accent: "pink" | "gold"; compact?: boolean }
@@ -46,6 +46,7 @@ const mainStageBands: Band[] = [
     image: fireworkMoriImage,
     imageFit: "contain",
     xUrl: "https://x.com/firework26_anit?s=11",
+    youtubeUrl: "https://youtube.com/@firework26?si=wz-IC-uU0DH-gqbb",
   },
   {
     name: "Dama de feroce",
@@ -111,7 +112,7 @@ function SectionHeading({ title, subtitle, accent, compact = false }: SectionHea
   )
 }
 
-function BandCard({ name, description, setlist, image, imageFit = "contain", xUrl, instagramUrl }: Band) {
+function BandCard({ name, description, setlist, image, imageFit = "contain", xUrl, instagramUrl, youtubeUrl }: Band) {
   return (
     <article className="relative flex h-[560px] flex-col overflow-hidden rounded-2xl border border-[rgba(249,206,105,0.27)] bg-[rgba(18,20,46,0.8)] md:h-[580px]">
       {/* Photo area */}
@@ -160,8 +161,8 @@ function BandCard({ name, description, setlist, image, imageFit = "contain", xUr
             ))}
           </ul>
         </div>
-        <div className={`mt-auto flex min-h-8 items-center gap-2 pt-3 ${xUrl || instagramUrl ? "border-t border-white/[0.08]" : ""}`}>
-            <SocialLinks instagramUrl={instagramUrl} xUrl={xUrl} labelPrefix={name} size="compact" />
+        <div className={`mt-auto flex min-h-8 items-center gap-2 pt-3 ${xUrl || instagramUrl || youtubeUrl ? "border-t border-white/[0.08]" : ""}`}>
+            <SocialLinks instagramUrl={instagramUrl} xUrl={xUrl} youtubeUrl={youtubeUrl} labelPrefix={name} size="compact" />
         </div>
       </div>
     </article>

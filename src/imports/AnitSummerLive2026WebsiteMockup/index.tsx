@@ -125,7 +125,7 @@ function Frame2() {
       <p className="font-['Geist:Bold',sans-serif] font-bold leading-[normal] relative shrink-0 text-[#df9f3e] text-[10px]">DATE</p>
       <p className="font-['Outfit:ExtraBold',sans-serif] font-extrabold leading-[0] relative shrink-0 text-[18px] text-white">
         <span className="leading-[normal]">{siteCopy.date}{" "}</span>
-        <span className="leading-[normal] text-[#ff3d77]">{siteCopy.weekday}</span>
+        <span className="leading-[normal] text-[#d6a62f]">{siteCopy.weekday}</span>
       </p>
     </div>
   );
@@ -714,7 +714,7 @@ function Frame10() {
       <p className="[word-break:break-word] font-['Geist:Bold',sans-serif] font-bold leading-[normal] relative shrink-0 text-[#df9f3e] text-[14px] w-[120px]">DATE</p>
       <p className="[word-break:break-word] font-['Outfit:Bold',sans-serif] font-bold leading-[0] relative shrink-0 text-[18px] text-white whitespace-nowrap">
         <span className="leading-[normal]">{siteCopy.date}{" "}</span>
-        <span className="leading-[normal] text-[#ff3d77]">{siteCopy.weekday}</span>
+        <span className="leading-[normal] text-[#d6a62f]">{siteCopy.weekday}</span>
       </p>
     </div>
   );
@@ -1042,7 +1042,7 @@ function MobileHeroInfo() {
   return (
     <div className="w-full rounded-2xl border border-white/[0.08] bg-[#12142e]/90 p-5 text-left backdrop-blur-sm">
       <div className="grid grid-cols-2 gap-x-5 gap-y-4">
-        <div><p className="font-['Geist:Bold',sans-serif] text-[10px] font-bold text-[#df9f3e]">DATE</p><p className="mt-1 font-['Outfit:ExtraBold',sans-serif] text-base text-white">{siteCopy.date} <span className="text-[#ff3d77]">{siteCopy.weekday}</span></p></div>
+        <div><p className="font-['Geist:Bold',sans-serif] text-[10px] font-bold text-[#df9f3e]">DATE</p><p className="mt-1 font-['Outfit:ExtraBold',sans-serif] text-base text-white">{siteCopy.date} <span className="text-[#d6a62f]">{siteCopy.weekday}</span></p></div>
         <div><p className="font-['Geist:Bold',sans-serif] text-[10px] font-bold text-[#df9f3e]">VENUE</p><p className="mt-1 font-['Geist:ExtraBold','Noto_Sans_JP:Black',sans-serif] text-sm font-extrabold text-white">{siteCopy.venue}</p></div>
         <div className="col-span-2 border-t border-white/[0.08] pt-4"><p className="font-['Geist:Bold',sans-serif] text-[10px] font-bold text-[#df9f3e]">DOOR / START</p><p className="mt-1 font-['Outfit:ExtraBold',sans-serif] text-base text-white">{siteCopy.doorStartCompact}</p></div>
       </div>
@@ -1081,7 +1081,7 @@ function TopConceptSection() {
         <MobileHeroInfo />
         <MobileConceptStarfield />
         <div className="flex items-center gap-2"><MobileStar src={imgRectangle1} className="relative size-4" /><p className="text-[10px] font-bold tracking-[0.12em] text-[#f9ce69]">CREATIVE CONCEPT</p><MobileStar src={imgRectangle3} className="relative size-4" /></div>
-        <div><p className="font-['Geist:ExtraBold','Noto_Sans_JP:Bold',sans-serif] text-[23px] leading-[1.45] text-white">{siteCopy.conceptTitle}</p><p className="mt-4 font-['Geist:Regular','Noto_Sans_JP:Regular',sans-serif] text-sm leading-6 text-[#8e93b3]">{siteCopy.conceptDescription}</p></div>
+        <div><p className="font-['Geist:ExtraBold','Noto_Sans_JP:Bold',sans-serif] text-[23px] leading-[1.45] text-white"><span className="whitespace-nowrap">「願いを叶えるのは、</span><br className="hidden max-[458px]:block" /><span className="whitespace-nowrap">魔法だけじゃない。」</span></p><p className="mt-4 font-['Geist:Regular','Noto_Sans_JP:Regular',sans-serif] text-sm leading-6 text-[#8e93b3]">{siteCopy.conceptDescription}</p></div>
         <p className="font-['Instrument_Serif:Italic',serif] text-base italic text-[#df9f3e]">{siteCopy.conceptEnglish}</p>
       </section>
       <div className="hidden w-full md:block"><ResponsiveSection fallbackHeight={520} backgroundColor="#07081a"><TaglineConceptSection /></ResponsiveSection></div>
@@ -1096,7 +1096,7 @@ function TopDetailsSection() {
         <MobileSectionStarfield />
         <div className="border-l-[3px] border-[#ff6b74] pl-3"><p className="font-['Outfit:ExtraBold',sans-serif] text-[22px] text-white">CONCERT DETAILS</p><p className="mt-1 text-[11px] text-[#8e93b3]">公演概要</p></div>
         <div className="mt-8">
-          <div className="border-b border-white/[0.08] py-4"><p className="font-['Geist:Bold',sans-serif] text-xs font-bold text-[#df9f3e]">DATE</p><p className="mt-2 font-['Outfit:Bold',sans-serif] text-sm font-bold leading-6 text-white">{siteCopy.date} <span className="text-[#ff3d77]">{siteCopy.weekday}</span></p></div>
+          <div className="border-b border-white/[0.08] py-4"><p className="font-['Geist:Bold',sans-serif] text-xs font-bold text-[#df9f3e]">DATE</p><p className="mt-2 font-['Outfit:Bold',sans-serif] text-sm font-bold leading-6 text-white">{siteCopy.date} <span className="text-[#d6a62f]">{siteCopy.weekday}</span></p></div>
           <div className="border-b border-white/[0.08] py-4"><p className="font-['Geist:Bold',sans-serif] text-xs font-bold text-[#df9f3e]">VENUE</p><p className="mt-2 whitespace-pre-line font-['Geist:Bold','Noto_Sans_JP:Bold',sans-serif] text-sm font-bold leading-6 text-white">{siteCopy.venue}{"\n"}<span className="font-['Geist:Regular','Noto_Sans_JP:Regular',sans-serif] font-normal text-[#8e93b3]">{siteCopy.address}</span>{"\n"}<span className="font-['Geist:Regular','Noto_Sans_JP:Regular',sans-serif] font-normal text-[#c2c3d2]">{siteCopy.access}</span></p></div>
           <div className="border-b border-white/[0.08] py-4"><p className="font-['Geist:Bold',sans-serif] text-xs font-bold text-[#df9f3e]">TIME</p><p className="mt-2 whitespace-pre-line font-['Geist:Bold',sans-serif] text-sm font-bold leading-6 text-white">{siteCopy.doorStart}{"\n"}<span className="font-['Geist:Regular','Noto_Sans_JP:Regular',sans-serif] font-normal text-[#c2c3d2]">{siteCopy.preConcert}</span></p></div>
           <div className="border-b border-white/[0.08] py-4"><p className="font-['Geist:Bold',sans-serif] text-xs font-bold text-[#df9f3e]">PRICE</p><p className="mt-2 font-['Geist:Bold','Noto_Sans_JP:Bold',sans-serif] text-sm font-bold leading-6 text-white">{siteCopy.studentPrice}　/　{siteCopy.generalPrice}</p></div>

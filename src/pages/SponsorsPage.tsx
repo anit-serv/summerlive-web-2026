@@ -72,15 +72,15 @@ export default function SponsorsPage() {
             src={imgStar4}
             alt=""
             aria-hidden
-            className="absolute opacity-60 w-6 h-6 object-cover pointer-events-none"
-            style={{ left: 77, top: 30, transform: "rotate(8deg)" }}
+            className="pointer-events-none absolute left-3 top-3 size-3 object-cover opacity-40 min-[501px]:left-[77px] min-[501px]:top-[30px] min-[501px]:size-6 min-[501px]:opacity-60"
+            style={{ transform: "rotate(8deg)" }}
           />
           <img
             src={imgStar2}
             alt=""
             aria-hidden
-            className="absolute opacity-50 w-[18px] h-[18px] object-cover pointer-events-none"
-            style={{ right: "5%", top: 40, transform: "rotate(-15deg)" }}
+            className="pointer-events-none absolute right-3 top-3 size-3 object-cover opacity-40 min-[501px]:right-[5%] min-[501px]:top-10 min-[501px]:size-[18px] min-[501px]:opacity-50"
+            style={{ transform: "rotate(-15deg)" }}
           />
           <p
             className="text-[#f9ce69] text-[16px] font-bold text-center leading-relaxed relative z-10 md:text-[20px] md:leading-none"

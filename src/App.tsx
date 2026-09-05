@@ -5,6 +5,26 @@ import PerformingBandsPage from './pages/PerformingBandsPage'
 import Navbar from './components/Navbar'
 import LoadingIntro from './components/LoadingIntro'
 
+const INTRO_LAST_SHOWN_KEY = 'anit-heat-up-intro-last-shown'
+const INTRO_COOLDOWN_MS = 30 * 60 * 1000
+
+function shouldShowHomeIntro() {
+  try {
+    const cameFromThisSite = document.referrer
+      ? new URL(document.referrer).origin === window.location.origin
+      : false
+    const lastShownAt = Number(window.localStorage.getItem(INTRO_LAST_SHOWN_KEY))
+    const isWithinCooldown = Number.isFinite(lastShownAt)
+      && lastShownAt > 0
+      && Date.now() - lastShownAt < INTRO_COOLDOWN_MS
+
+    return !cameFromThisSite && !isWithinCooldown
+  } catch {
+    // ストレージを利用できないブラウザでは、従来どおり演出を表示する。
+    return true
+  }
+}
+
 const activeStarAnimations = new WeakMap<HTMLImageElement, {
   frame: number
   originalRotate: string
@@ -113,7 +133,18 @@ function useStarSpin() {
 }
 
 function HomePage() {
-  const [isIntroVisible, setIsIntroVisible] = useState(true)
+  const [isIntroVisible, setIsIntroVisible] = useState(shouldShowHomeIntro)
+
+  useEffect(() => {
+    if (!isIntroVisible) return
+
+    try {
+      // 演出途中で再読み込みしても繰り返さないよう、表示開始時刻を保存する。
+      window.localStorage.setItem(INTRO_LAST_SHOWN_KEY, String(Date.now()))
+    } catch {
+      // ストレージが無効でも、現在の演出はそのまま続行する。
+    }
+  }, [isIntroVisible])
 
   return (
     <div className="relative overflow-x-hidden bg-[#060713]">
