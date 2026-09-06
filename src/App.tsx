@@ -40,9 +40,7 @@ const spinProgress = (progress: number) => {
 
 function useStarSpin() {
   useEffect(() => {
-    // 回転中に画像自体の当たり判定が動いても、ホバー開始が連続発火しないよう
-    // 回転前の領域を基準に状態を持つ。
-    const hoverStates = new Map<HTMLImageElement, { isHovering: boolean; rect: DOMRect }>()
+    const interactiveStars = new Set<HTMLImageElement>()
 
     const spinStar = (target: EventTarget | null) => {
       if (!(target instanceof HTMLImageElement) || target.dataset.interactiveStar !== 'true') return
@@ -92,42 +90,27 @@ function useStarSpin() {
         image.style.pointerEvents = 'auto'
         image.style.cursor = 'pointer'
         image.style.touchAction = 'manipulation'
-        if (!hoverStates.has(image)) {
-          hoverStates.set(image, { isHovering: false, rect: image.getBoundingClientRect() })
-        }
+        if (interactiveStars.has(image)) return
+        interactiveStars.add(image)
+        image.addEventListener('pointerenter', spinOnHoverStart)
       })
+    }
+
+    function spinOnHoverStart(event: PointerEvent) {
+      if (event.pointerType === 'touch') return
+      spinStar(event.currentTarget)
     }
 
     markInteractiveStars()
     window.addEventListener('load', markInteractiveStars)
 
     const spinOnClick = (event: MouseEvent) => spinStar(event.target)
-    const spinOnHoverStart = (event: PointerEvent) => {
-      if (event.pointerType === 'touch') return
-
-      hoverStates.forEach((state, image) => {
-        // 停止中はレイアウト変化やスクロール後の領域を取り直す。
-        if (!activeStarAnimations.has(image)) state.rect = image.getBoundingClientRect()
-
-        const { left, right, top, bottom } = state.rect
-        const isInside = event.clientX >= left && event.clientX <= right && event.clientY >= top && event.clientY <= bottom
-
-        if (isInside && !state.isHovering) {
-          state.isHovering = true
-          spinStar(image)
-        } else if (!isInside) {
-          state.isHovering = false
-        }
-      })
-    }
-
     document.addEventListener('click', spinOnClick)
-    document.addEventListener('pointermove', spinOnHoverStart)
     return () => {
       window.removeEventListener('load', markInteractiveStars)
       document.removeEventListener('click', spinOnClick)
-      document.removeEventListener('pointermove', spinOnHoverStart)
-      hoverStates.clear()
+      interactiveStars.forEach((image) => image.removeEventListener('pointerenter', spinOnHoverStart))
+      interactiveStars.clear()
     }
   }, [])
 }
@@ -148,8 +131,9 @@ function HomePage() {
 
   return (
     <div className="relative overflow-x-hidden bg-[#060713]">
+      <h1 className="absolute size-px overflow-hidden whitespace-nowrap [clip:rect(0,0,0,0)]">東京農工大学アカペラサークルANIT サマーライブ2026「Heat up!」</h1>
       <Navbar />
-      <AnitSummerLive2026WebsiteMockup />
+      <main><AnitSummerLive2026WebsiteMockup /></main>
       {isIntroVisible ? <LoadingIntro onComplete={() => setIsIntroVisible(false)} /> : null}
     </div>
   )

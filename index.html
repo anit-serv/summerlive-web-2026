@@ -8,6 +8,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Noto+Sans+JP:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
     <meta name="description" content="東京農工大学アカペラサークルANIT サマーライブ2026『Heat up!』。2026年9月18日（金）、座・高円寺2にて開催。" />
+    <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
     <link rel="canonical" href="https://anit-heat-up.vercel.app/" />
     <meta name="theme-color" content="#060713" />
 
@@ -29,10 +30,94 @@
     <meta name="twitter:image" content="https://anit-heat-up.vercel.app/og-image.jpg" />
     <meta name="twitter:image:alt" content="魔法のランプを見つけた主人公つばさと、アカペラ魔人アーニー" />
 
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebSite",
+            "@id": "https://anit-heat-up.vercel.app/#website",
+            "url": "https://anit-heat-up.vercel.app/",
+            "name": "ANIT Summer Live 2026『Heat up!』",
+            "inLanguage": "ja"
+          },
+          {
+            "@type": "Organization",
+            "@id": "https://anit-heat-up.vercel.app/#organizer",
+            "name": "東京農工大学アカペラサークルANIT",
+            "sameAs": [
+              "https://twitter.com/ANIT_LIVE",
+              "https://www.instagram.com/anit_cl/"
+            ]
+          },
+          {
+            "@type": "MusicEvent",
+            "@id": "https://anit-heat-up.vercel.app/#event",
+            "name": "ANIT サマーライブ2026『Heat up!』",
+            "description": "東京農工大学アカペラサークルANITによる、ホールを使ったアカペラライブです。",
+            "url": "https://anit-heat-up.vercel.app/",
+            "image": ["https://anit-heat-up.vercel.app/og-image.jpg"],
+            "startDate": "2026-09-18T17:00:00+09:00",
+            "doorTime": "2026-09-18T16:00:00+09:00",
+            "eventStatus": "https://schema.org/EventScheduled",
+            "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+            "location": {
+              "@type": "Place",
+              "name": "座・高円寺2",
+              "address": {
+                "@type": "PostalAddress",
+                "postalCode": "166-0002",
+                "streetAddress": "高円寺北2丁目1-2",
+                "addressLocality": "杉並区",
+                "addressRegion": "東京都",
+                "addressCountry": "JP"
+              }
+            },
+            "organizer": { "@id": "https://anit-heat-up.vercel.app/#organizer" },
+            "performer": [
+              { "@type": "MusicGroup", "name": "そらもよう" },
+              { "@type": "MusicGroup", "name": "肆葩" },
+              { "@type": "MusicGroup", "name": "Lily" },
+              { "@type": "MusicGroup", "name": "ファイヤーワーク森" },
+              { "@type": "MusicGroup", "name": "Dama de feroce" },
+              { "@type": "MusicGroup", "name": "フリッツ" },
+              { "@type": "MusicGroup", "name": "Le un" },
+              { "@type": "MusicGroup", "name": "sümire" }
+            ],
+            "offers": [
+              {
+                "@type": "Offer",
+                "name": "学生料金",
+                "url": "https://livepocket.jp/e/zy4df",
+                "price": "500",
+                "priceCurrency": "JPY",
+                "availability": "https://schema.org/InStock"
+              },
+              {
+                "@type": "Offer",
+                "name": "一般料金",
+                "url": "https://livepocket.jp/e/zy4df",
+                "price": "1000",
+                "priceCurrency": "JPY",
+                "availability": "https://schema.org/InStock"
+              }
+            ]
+          }
+        ]
+      }
+    </script>
+
     <title>ANIT サマーライブ2026「Heat up!」</title>
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root">
+      <main>
+        <h1>東京農工大学アカペラサークルANIT サマーライブ2026「Heat up!」</h1>
+        <p>2026年9月18日（金）、座・高円寺2で開催するアカペラライブです。開場16:00、開演17:00。16:00から17:00までプレコンサートを行います。</p>
+        <p>JR総武線「高円寺」駅から徒歩5分。料金は学生500円、一般1000円です。</p>
+        <nav aria-label="サイト内リンク"><a href="/bands">出演バンド</a> <a href="/sponsors">協賛企業様</a> <a href="https://livepocket.jp/e/zy4df">チケット情報</a></nav>
+      </main>
+    </div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

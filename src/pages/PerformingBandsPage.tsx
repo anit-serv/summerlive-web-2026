@@ -105,7 +105,7 @@ function SectionHeading({ title, subtitle, accent, compact = false }: SectionHea
 
   return (
     <div className="flex w-full flex-col items-center gap-3">
-      <p className={titleClassName}>{title}</p>
+      <h2 className={titleClassName}>{title}</h2>
       <p className="text-[14px] font-semibold text-[#c2c3d2]">{subtitle}</p>
       <div className={lineClassName} />
     </div>
@@ -118,7 +118,7 @@ function BandCard({ name, description, setlist, image, imageFit = "contain", xUr
       {/* Photo area */}
       <div className="bg-[#1f213a] h-[210px] flex items-center justify-center relative w-full shrink-0 md:h-[220px]">
         {image ? (
-          <img src={image} alt={`${name}のバンド画像`} className={`size-full ${imageFit === "cover" ? "object-cover" : "object-contain"}`} />
+          <img src={image} alt={`アカペラバンド「${name}」の出演写真`} width="800" height="450" loading="lazy" decoding="async" className={`size-full ${imageFit === "cover" ? "object-cover" : "object-contain"}`} />
         ) : (
           <>
             <img
@@ -138,12 +138,12 @@ function BandCard({ name, description, setlist, image, imageFit = "contain", xUr
         )}
       </div>
       <div className="flex flex-1 flex-col gap-3 p-5 md:p-6">
-        <p
+        <h3
           className="text-[20px] font-bold leading-none text-white"
           style={{ fontFamily: "'Geist', sans-serif" }}
         >
           {name}
-        </p>
+        </h3>
         <p
           className="h-[92px] overflow-y-auto pr-1 text-[13px] leading-[1.7] text-[#c2c3d2]"
           style={{ fontFamily: "'Geist', 'Noto Sans JP', sans-serif" }}
@@ -180,9 +180,9 @@ function PreStageCard({ name, xUrl, instagramUrl }: PreStageBand) {
       />
       <p className="font-['Outfit:ExtraBold',sans-serif] text-[10px] font-extrabold tracking-[0.16em] text-[#f9ce69]">PRE-CONCERT</p>
       <div className="mt-4 flex items-center justify-between gap-3">
-        <p className="min-w-0 text-[20px] font-bold leading-tight text-white" style={{ fontFamily: "'Geist', sans-serif" }}>
+        <h3 className="min-w-0 text-[20px] font-bold leading-tight text-white" style={{ fontFamily: "'Geist', sans-serif" }}>
           {name}
-        </p>
+        </h3>
         <div className="shrink-0"><SocialLinks instagramUrl={instagramUrl} xUrl={xUrl} labelPrefix={name} size="compact" /></div>
       </div>
     </article>

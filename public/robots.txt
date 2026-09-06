@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://anit-heat-up.vercel.app/sitemap.xml

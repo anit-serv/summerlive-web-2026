@@ -26,7 +26,7 @@ function SponsorCard({ name, logo, size }: Sponsor) {
       }}
     >
       {logo ? (
-        <img src={logo} alt={name} className={`max-w-full object-contain ${isLarge ? "max-h-[104px] md:max-h-[128px]" : "max-h-[60px] md:max-h-[76px]"}`} />
+        <img src={logo} alt={`${name} ロゴ`} loading="lazy" decoding="async" className={`max-w-full object-contain ${isLarge ? "max-h-[104px] md:max-h-[128px]" : "max-h-[60px] md:max-h-[76px]"}`} />
       ) : (
         <p
           className={`${isLarge ? "text-[16px] md:text-[18px]" : "text-[12px] md:text-[13px]"} whitespace-nowrap font-bold text-white opacity-75`}
@@ -49,7 +49,7 @@ export default function SponsorsPage() {
       <section className="mx-auto flex w-full max-w-[1440px] flex-col items-center gap-10 px-5 pb-20 pt-14 md:gap-16 md:px-[120px] md:pb-[120px] md:pt-[80px]">
         {/* Section heading */}
         <div className="flex flex-col items-center w-full max-w-[800px]">
-          <p className="font-['Outfit:ExtraBold',sans-serif] text-[24px] font-extrabold tracking-[0.08em] text-[#f9ce69] md:text-[30px]">SPECIAL THANKS</p>
+          <h2 className="font-['Outfit:ExtraBold',sans-serif] text-[24px] font-extrabold tracking-[0.08em] text-[#f9ce69] md:text-[30px]">SPECIAL THANKS</h2>
         </div>
 
         {/* Sponsor logo grids */}

@@ -89,7 +89,7 @@ function HeroHeadlineWrapper() {
   return (
     <div className="content-stretch flex flex-col gap-[8px] items-start relative shrink-0 w-full" data-name="hero-headline-wrapper">
       <div className="h-[161px] relative shrink-0 w-[419.271px]" data-name="heat-up-theme2-logo">
-        <img alt="" className="absolute inset-0 max-w-none object-cover pointer-events-none size-full" src={imgHeatUpTheme2Logo} />
+        <img alt="Heat up!" className="absolute inset-0 max-w-none object-cover pointer-events-none size-full" src={imgHeatUpTheme2Logo} />
       </div>
       <p className="[word-break:break-word] font-['Geist:Light','Noto_Sans_JP:Light',sans-serif] font-light leading-[normal] relative shrink-0 text-[20px] text-[rgba(255,255,255,0.8)] whitespace-nowrap">{siteCopy.heroTagline}</p>
     </div>
@@ -339,7 +339,7 @@ function HeroIllustrationPanel() {
     <div className="content-stretch flex flex-col h-[920px] items-center justify-center overflow-clip relative shrink-0 w-[780px]" data-name="hero-illustration-panel">
       <Frame5 />
       <div className="absolute h-[920px] left-0 top-0 w-[780px]" data-name="hero-illustration-main">
-        <img alt="" className="absolute inset-0 max-w-none object-contain pointer-events-none size-full" src={imgHeroIllustrationMain} />
+        <img alt="魔法のランプを見つけた主人公つばさと、アカペラ魔人アーニー" loading="lazy" decoding="async" className="absolute inset-0 max-w-none object-contain pointer-events-none size-full" src={imgHeroIllustrationMain} />
       </div>
       <div className="absolute h-[672px] left-0 top-[-50px] w-[779.52px]" style={{ backgroundImage: "url(\"data:image/svg+xml;utf8,<svg viewBox='0 0 779.52 672' xmlns='http://www.w3.org/2000/svg' preserveAspectRatio='none'><rect x='0' y='0' height='100%' width='100%' fill='url(%23grad)' opacity='1'/><defs><radialGradient id='grad' gradientUnits='userSpaceOnUse' cx='0' cy='0' r='10' gradientTransform='matrix(38.976 0 0 47.04 389.76 201.6)'><stop stop-color='rgba(249,168,48,0.26667)' offset='0'/><stop stop-color='rgba(255,159,67,0.13333)' offset='0.5'/><stop stop-color='rgba(6,7,19,0)' offset='1'/></radialGradient></defs></svg>\")" }} data-name="lamp-glow-center" />
       <FloatingStarsTr />
@@ -930,7 +930,7 @@ function DarkBadgeContainer() {
   return (
     <div className="content-stretch drop-shadow-[0px_20px_25px_rgba(255,61,119,0.13)] flex flex-col h-[520px] items-center justify-center overflow-clip relative rounded-[20px] shrink-0 w-[450px]" data-name="dark-badge-container">
       <div className="h-[520px] relative shrink-0 w-[450px]" data-name="dark-badge-logo">
-        <img alt="" className="absolute inset-0 max-w-none object-cover pointer-events-none size-full" src={imgDarkBadgeLogo} />
+        <img alt="ANIT Summer Live 2026 エンブレム" loading="lazy" decoding="async" className="absolute inset-0 max-w-none object-cover pointer-events-none size-full" src={imgDarkBadgeLogo} />
       </div>
     </div>
   );
@@ -1111,7 +1111,7 @@ function TopStorySection() {
   return (
     <>
       <section className="relative w-full bg-[#0b0c1e] px-5 py-14 md:hidden">
-        <div className="overflow-hidden rounded-2xl bg-[#1f213a]"><img src={imgDarkBadgeLogo} alt="ANIT Summer Live 2026 エンブレム" className="h-[220px] w-full object-cover" /></div>
+        <div className="overflow-hidden rounded-2xl bg-[#1f213a]"><img src={imgDarkBadgeLogo} alt="ANIT Summer Live 2026 エンブレム" width="900" height="1040" loading="lazy" decoding="async" className="h-[220px] w-full object-cover" /></div>
         <MobileSectionStarfield mirrored />
         <div className="mt-9"><p className="font-['Geist:Bold',sans-serif] text-[11px] font-bold text-[#ff3d77]">THE STORY</p><p className="mt-2 font-['Outfit:ExtraBold',sans-serif] text-[26px] text-white">ABOUT THE MAGIC</p><div className="mt-3 h-0.5 w-10 bg-[#df9f3e]" /><StoryText className="mt-6 font-['Geist:Regular','Noto_Sans_JP:Bold','Noto_Sans_JP:Regular',sans-serif] text-sm leading-7 text-[#b5b7cd]" lineClassName="" /></div>
       </section>

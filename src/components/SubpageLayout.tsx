@@ -15,8 +15,10 @@ export default function SubpageLayout({ title, subtitle, theme, children }: Subp
   return (
     <div className="relative flex min-h-full w-full flex-col items-start bg-[#060713]">
       <Navbar />
-      <PageHero title={title} subtitle={subtitle} theme={theme} />
-      {children}
+      <main className="w-full">
+        <PageHero title={title} subtitle={subtitle} theme={theme} />
+        {children}
+      </main>
       <TicketCtaSection />
       <Footer />
     </div>
