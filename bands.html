@@ -27,22 +27,34 @@
     <meta name="twitter:title" content="出演バンド｜ANIT サマーライブ2026「Heat up!」" />
     <meta name="twitter:description" content="本編8バンドとプレコンサート4バンド、全体曲をご紹介します。" />
     <meta name="twitter:image" content="https://anit-heat-up.vercel.app/og-image.jpg" />
+    <meta name="twitter:image:alt" content="魔法のランプを見つけた主人公つばさと、アカペラ魔人アーニー" />
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
-        "@type": "ItemList",
-        "name": "ANIT サマーライブ2026 出演バンド",
-        "url": "https://anit-heat-up.vercel.app/bands",
-        "numberOfItems": 8,
-        "itemListElement": [
-          { "@type": "ListItem", "position": 1, "name": "そらもよう" },
-          { "@type": "ListItem", "position": 2, "name": "肆葩" },
-          { "@type": "ListItem", "position": 3, "name": "Lily" },
-          { "@type": "ListItem", "position": 4, "name": "ファイヤーワーク森" },
-          { "@type": "ListItem", "position": 5, "name": "Dama de feroce" },
-          { "@type": "ListItem", "position": 6, "name": "フリッツ" },
-          { "@type": "ListItem", "position": 7, "name": "Le un" },
-          { "@type": "ListItem", "position": 8, "name": "sümire" }
+        "@graph": [
+          {
+            "@type": "ItemList",
+            "name": "ANIT サマーライブ2026 出演バンド",
+            "url": "https://anit-heat-up.vercel.app/bands",
+            "numberOfItems": 8,
+            "itemListElement": [
+              { "@type": "ListItem", "position": 1, "name": "そらもよう" },
+              { "@type": "ListItem", "position": 2, "name": "肆葩" },
+              { "@type": "ListItem", "position": 3, "name": "Lily" },
+              { "@type": "ListItem", "position": 4, "name": "ファイヤーワーク森" },
+              { "@type": "ListItem", "position": 5, "name": "Dama de feroce" },
+              { "@type": "ListItem", "position": 6, "name": "フリッツ" },
+              { "@type": "ListItem", "position": 7, "name": "Le un" },
+              { "@type": "ListItem", "position": 8, "name": "sümire" }
+            ]
+          },
+          {
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              { "@type": "ListItem", "position": 1, "name": "トップ", "item": "https://anit-heat-up.vercel.app/" },
+              { "@type": "ListItem", "position": 2, "name": "出演バンド", "item": "https://anit-heat-up.vercel.app/bands" }
+            ]
+          }
         ]
       }
     </script>
