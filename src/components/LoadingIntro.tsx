@@ -1,19 +1,35 @@
 import { useEffect, useState, type CSSProperties } from 'react'
 import lampImage from '../assets/logo/ランプ.webp'
+import lampImageMobile from '../assets/logo/ランプ-mobile.webp'
 import smoke1 from '../assets/logo/煙1.webp'
+import smoke1Mobile from '../assets/logo/煙1-mobile.webp'
 import smoke2 from '../assets/logo/煙2.webp'
+import smoke2Mobile from '../assets/logo/煙2-mobile.webp'
 import smoke3 from '../assets/logo/煙3.webp'
+import smoke3Mobile from '../assets/logo/煙3-mobile.webp'
 import smoke4 from '../assets/logo/煙4.webp'
+import smoke4Mobile from '../assets/logo/煙4-mobile.webp'
 import smoke5 from '../assets/logo/煙5.webp'
+import smoke5Mobile from '../assets/logo/煙5-mobile.webp'
 import smoke6 from '../assets/logo/煙6.webp'
+import smoke6Mobile from '../assets/logo/煙6-mobile.webp'
 import smoke7 from '../assets/logo/煙7.webp'
+import smoke7Mobile from '../assets/logo/煙7-mobile.webp'
 import smoke8WithBackdrop from '../assets/logo/煙8-下部背景付き-v2.webp'
+import smoke8WithBackdropMobile from '../assets/logo/煙8-下部背景付き-v2-mobile.webp'
 
 type Stage = 'awakening' | 'rising' | 'covering' | 'swiping'
 
-const earlyFrames = [smoke1, smoke2, smoke3, smoke4]
-const risingFrames = [smoke5, smoke6, smoke7]
-const introAssets = [lampImage, ...earlyFrames, ...risingFrames, smoke8WithBackdrop]
+const useMobileAssets = window.matchMedia('(max-width: 640px)').matches
+const lampSource = useMobileAssets ? lampImageMobile : lampImage
+const earlyFrames = useMobileAssets
+  ? [smoke1Mobile, smoke2Mobile, smoke3Mobile, smoke4Mobile]
+  : [smoke1, smoke2, smoke3, smoke4]
+const risingFrames = useMobileAssets
+  ? [smoke5Mobile, smoke6Mobile, smoke7Mobile]
+  : [smoke5, smoke6, smoke7]
+const smoke8Source = useMobileAssets ? smoke8WithBackdropMobile : smoke8WithBackdrop
+const introAssets = [lampSource, ...earlyFrames, ...risingFrames, smoke8Source]
 const FRAME_DURATION = 350
 const FINAL_FRAME_DURATION = FRAME_DURATION
 const SWIPE_DURATION = 2500
@@ -124,8 +140,8 @@ export default function LoadingIntro({ onComplete }: { onComplete: () => void })
               alt=""
             />
           ))}
-          <img className="loading-intro__smoke8" src={smoke8WithBackdrop} alt="" />
-          <img className="loading-intro__lamp" src={lampImage} alt="" />
+          <img className="loading-intro__smoke8" src={smoke8Source} alt="" />
+          <img className="loading-intro__lamp" src={lampSource} alt="" />
         </div>
       </div>
     </div>

@@ -1,13 +1,16 @@
 import { useEffect, useLayoutEffect, useRef, useState, type ReactNode } from "react";
 import svgPaths from "./svg-mgxjo3va0f";
 import imgHeroBg from "./e6c136ba7e16974cb9b54225078026295647ba89.webp";
+import imgHeroBgMobile from "./e6c136ba7e16974cb9b54225078026295647ba89-mobile.webp";
 import imgHeatUpTheme2Logo from "./2c47d36d4cbf9106105be9c15f8e09b16e955d8e.webp";
 import imgRectangle from "../../assets/logo/stars/star2.png";
 import imgHeroIllustrationMain from "./3231ca4a209615e16870d257b55d609595b1c0ac.webp";
+import imgHeroIllustrationMainMobile from "./3231ca4a209615e16870d257b55d609595b1c0ac-mobile.webp";
 import imgRectangle1 from "../../assets/logo/stars/star1.png";
 import imgRectangle2 from "../../assets/logo/stars/star4.png";
 import imgRectangle3 from "../../assets/logo/stars/star3.png";
 import imgDarkBadgeLogo from "./903602c17e66886ba85a516cd4e558e1b25e0dc7.webp";
+import imgDarkBadgeLogoMobile from "./903602c17e66886ba85a516cd4e558e1b25e0dc7-mobile.webp";
 import TicketCtaSection from "../../components/TicketCtaSection";
 import SiteFooter from "../../components/Footer";
 
@@ -339,7 +342,10 @@ function HeroIllustrationPanel() {
     <div className="content-stretch flex flex-col h-[920px] items-center justify-center overflow-clip relative shrink-0 w-[780px]" data-name="hero-illustration-panel">
       <Frame5 />
       <div className="absolute h-[920px] left-0 top-0 w-[780px]" data-name="hero-illustration-main">
-        <img alt="魔法のランプを見つけた主人公つばさと、アカペラ魔人アーニー" loading="lazy" decoding="async" className="absolute inset-0 max-w-none object-contain pointer-events-none size-full" src={imgHeroIllustrationMain} />
+        <picture className="contents">
+          <source media="(max-width: 767px)" srcSet={imgHeroIllustrationMainMobile} />
+          <img alt="魔法のランプを見つけた主人公つばさと、アカペラ魔人アーニー" loading="lazy" decoding="async" className="absolute inset-0 max-w-none object-contain pointer-events-none size-full" src={imgHeroIllustrationMain} />
+        </picture>
       </div>
       <div className="absolute h-[672px] left-0 top-[-50px] w-[779.52px]" style={{ backgroundImage: "url(\"data:image/svg+xml;utf8,<svg viewBox='0 0 779.52 672' xmlns='http://www.w3.org/2000/svg' preserveAspectRatio='none'><rect x='0' y='0' height='100%' width='100%' fill='url(%23grad)' opacity='1'/><defs><radialGradient id='grad' gradientUnits='userSpaceOnUse' cx='0' cy='0' r='10' gradientTransform='matrix(38.976 0 0 47.04 389.76 201.6)'><stop stop-color='rgba(249,168,48,0.26667)' offset='0'/><stop stop-color='rgba(255,159,67,0.13333)' offset='0.5'/><stop stop-color='rgba(6,7,19,0)' offset='1'/></radialGradient></defs></svg>\")" }} data-name="lamp-glow-center" />
       <FloatingStarsTr />
@@ -1111,7 +1117,7 @@ function TopStorySection() {
   return (
     <>
       <section className="relative w-full bg-[#0b0c1e] px-5 py-14 md:hidden">
-        <div className="overflow-hidden rounded-2xl bg-[#1f213a]"><img src={imgDarkBadgeLogo} alt="ANIT Summer Live 2026 エンブレム" width="900" height="1040" loading="lazy" decoding="async" className="h-[220px] w-full object-cover" /></div>
+        <div className="overflow-hidden rounded-2xl bg-[#1f213a]"><img src={imgDarkBadgeLogoMobile} alt="ANIT Summer Live 2026 エンブレム" width="720" height="1018" loading="lazy" decoding="async" className="h-[220px] w-full object-cover" /></div>
         <MobileSectionStarfield mirrored />
         <div className="mt-9"><p className="font-['Geist:Bold',sans-serif] text-[11px] font-bold text-[#ff3d77]">THE STORY</p><p className="mt-2 font-['Outfit:ExtraBold',sans-serif] text-[26px] text-white">ABOUT THE MAGIC</p><div className="mt-3 h-0.5 w-10 bg-[#df9f3e]" /><StoryText className="mt-6 font-['Geist:Regular','Noto_Sans_JP:Bold','Noto_Sans_JP:Regular',sans-serif] text-sm leading-7 text-[#b5b7cd]" lineClassName="" /></div>
       </section>
@@ -1142,7 +1148,10 @@ function FixedHeroBackdrop() {
   return (
     <div aria-hidden className="pointer-events-none fixed inset-0 z-0 flex justify-center overflow-hidden bg-[#060713]">
       <div className="fixed-hero-backdrop__frame w-full max-w-[1440px] overflow-hidden">
-        <img src={imgHeroBg} alt="" className="size-full object-cover opacity-80" />
+        <picture className="contents">
+          <source media="(max-width: 767px)" srcSet={imgHeroBgMobile} />
+          <img src={imgHeroBg} alt="" width="1600" height="1600" className="size-full object-cover opacity-80" />
+        </picture>
       </div>
     </div>
   );
