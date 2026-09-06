@@ -129,6 +129,8 @@ export default function LoadingIntro({ onComplete }: { onComplete: () => void })
               key={source}
               className={`loading-intro__smoke loading-intro__smoke--early-${index} ${stage === 'awakening' && frame === index ? 'loading-intro__smoke--active' : ''}`}
               src={source}
+              width={useMobileAssets ? 640 : 1672}
+              height={useMobileAssets ? 360 : 941}
               alt=""
             />
           ))}
@@ -137,11 +139,13 @@ export default function LoadingIntro({ onComplete }: { onComplete: () => void })
               key={source}
               className={`loading-intro__smoke loading-intro__smoke--rising-${index} ${stage === 'rising' && frame === index ? 'loading-intro__smoke--active' : ''}`}
               src={source}
+              width={useMobileAssets ? 640 : 1672}
+              height={useMobileAssets ? 360 : 941}
               alt=""
             />
           ))}
-          <img className="loading-intro__smoke8" src={smoke8Source} alt="" />
-          <img className="loading-intro__lamp" src={lampSource} alt="" />
+          <img className="loading-intro__smoke8" src={smoke8Source} width={useMobileAssets ? 640 : 1024} height={useMobileAssets ? 2310 : 3696} alt="" />
+          <img className="loading-intro__lamp" src={lampSource} width={useMobileAssets ? 320 : 1024} height={useMobileAssets ? 213 : 683} alt="" />
         </div>
       </div>
     </div>

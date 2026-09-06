@@ -1,29 +1,8 @@
-import { useEffect, useState } from 'react'
-import AnitSummerLive2026WebsiteMockup from './imports/AnitSummerLive2026WebsiteMockup'
-import SponsorsPage from './pages/SponsorsPage'
-import PerformingBandsPage from './pages/PerformingBandsPage'
-import Navbar from './components/Navbar'
-import LoadingIntro from './components/LoadingIntro'
+import { lazy, Suspense, useEffect } from 'react'
 
-const INTRO_LAST_SHOWN_KEY = 'anit-heat-up-intro-last-shown'
-const INTRO_COOLDOWN_MS = 30 * 60 * 1000
-
-function shouldShowHomeIntro() {
-  try {
-    const cameFromThisSite = document.referrer
-      ? new URL(document.referrer).origin === window.location.origin
-      : false
-    const lastShownAt = Number(window.localStorage.getItem(INTRO_LAST_SHOWN_KEY))
-    const isWithinCooldown = Number.isFinite(lastShownAt)
-      && lastShownAt > 0
-      && Date.now() - lastShownAt < INTRO_COOLDOWN_MS
-
-    return !cameFromThisSite && !isWithinCooldown
-  } catch {
-    // ストレージを利用できないブラウザでは、従来どおり演出を表示する。
-    return true
-  }
-}
+const HomePage = lazy(() => import('./pages/HomePage'))
+const SponsorsPage = lazy(() => import('./pages/SponsorsPage'))
+const PerformingBandsPage = lazy(() => import('./pages/PerformingBandsPage'))
 
 const activeStarAnimations = new WeakMap<HTMLImageElement, {
   frame: number
@@ -79,11 +58,19 @@ function useStarSpin() {
       animation.frame = requestAnimationFrame(animate)
     }
 
-    const markInteractiveStars = () => {
-      document.querySelectorAll<HTMLImageElement>('img.pointer-events-none').forEach((image) => {
+    const prepareImage = (image: HTMLImageElement) => {
+      if (image.naturalWidth <= 0 || image.naturalHeight <= 0) {
+        image.addEventListener('load', () => prepareImage(image), { once: true })
+        return
+      }
+
+      if (!image.hasAttribute('width')) image.setAttribute('width', String(image.naturalWidth))
+      if (!image.hasAttribute('height')) image.setAttribute('height', String(image.naturalHeight))
+
+      if (image.classList.contains('pointer-events-none')) {
         const source = image.currentSrc || image.src
         const isStarAsset = /\/star[1-4](?:[-.]|$)/.test(source)
-        const isStarSized = image.naturalWidth > 0 && image.naturalWidth <= 100 && image.naturalHeight <= 100
+        const isStarSized = image.naturalWidth <= 100 && image.naturalHeight <= 100
         if (!isStarAsset && !isStarSized) return
 
         image.dataset.interactiveStar = 'true'
@@ -93,7 +80,12 @@ function useStarSpin() {
         if (interactiveStars.has(image)) return
         interactiveStars.add(image)
         image.addEventListener('pointerenter', spinOnHoverStart)
-      })
+      }
+    }
+
+    const prepareImages = (root: ParentNode = document) => {
+      if (root instanceof HTMLImageElement) prepareImage(root)
+      root.querySelectorAll<HTMLImageElement>('img').forEach(prepareImage)
     }
 
     function spinOnHoverStart(event: PointerEvent) {
@@ -101,13 +93,23 @@ function useStarSpin() {
       spinStar(event.currentTarget)
     }
 
-    markInteractiveStars()
-    window.addEventListener('load', markInteractiveStars)
+    prepareImages()
+    const observer = new MutationObserver((records) => {
+      records.forEach((record) => {
+        record.addedNodes.forEach((node) => {
+          if (node instanceof Element) prepareImages(node)
+        })
+      })
+    })
+    observer.observe(document.getElementById('root') ?? document.body, { childList: true, subtree: true })
+    const prepareLoadedImages = () => prepareImages()
+    window.addEventListener('load', prepareLoadedImages, { once: true })
 
     const spinOnClick = (event: MouseEvent) => spinStar(event.target)
     document.addEventListener('click', spinOnClick)
     return () => {
-      window.removeEventListener('load', markInteractiveStars)
+      observer.disconnect()
+      window.removeEventListener('load', prepareLoadedImages)
       document.removeEventListener('click', spinOnClick)
       interactiveStars.forEach((image) => image.removeEventListener('pointerenter', spinOnHoverStart))
       interactiveStars.clear()
@@ -115,35 +117,15 @@ function useStarSpin() {
   }, [])
 }
 
-function HomePage() {
-  const [isIntroVisible, setIsIntroVisible] = useState(shouldShowHomeIntro)
-
-  useEffect(() => {
-    if (!isIntroVisible) return
-
-    try {
-      // 演出途中で再読み込みしても繰り返さないよう、表示開始時刻を保存する。
-      window.localStorage.setItem(INTRO_LAST_SHOWN_KEY, String(Date.now()))
-    } catch {
-      // ストレージが無効でも、現在の演出はそのまま続行する。
-    }
-  }, [isIntroVisible])
-
-  return (
-    <div className="relative overflow-x-hidden bg-[#060713]">
-      <h1 className="absolute size-px overflow-hidden whitespace-nowrap [clip:rect(0,0,0,0)]">東京農工大学アカペラサークルANIT サマーライブ2026「Heat up!」</h1>
-      <Navbar />
-      <main><AnitSummerLive2026WebsiteMockup /></main>
-      {isIntroVisible ? <LoadingIntro onComplete={() => setIsIntroVisible(false)} /> : null}
-    </div>
-  )
-}
-
 export default function App() {
   useStarSpin()
   const path = window.location.pathname.replace(/\/+$/, '') || '/'
 
-  if (path === '/sponsors') return <SponsorsPage />
-  if (path === '/bands') return <PerformingBandsPage />
-  return <HomePage />
+  const page = path === '/sponsors'
+    ? <SponsorsPage />
+    : path === '/bands'
+      ? <PerformingBandsPage />
+      : <HomePage />
+
+  return <Suspense fallback={<div className="min-h-screen bg-[#060713]" />}>{page}</Suspense>
 }
