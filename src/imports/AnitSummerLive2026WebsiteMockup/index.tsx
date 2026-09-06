@@ -936,7 +936,7 @@ function DarkBadgeContainer() {
   return (
     <div className="content-stretch drop-shadow-[0px_20px_25px_rgba(255,61,119,0.13)] flex flex-col h-[520px] items-center justify-center overflow-clip relative rounded-[20px] shrink-0 w-[450px]" data-name="dark-badge-container">
       <div className="h-[520px] relative shrink-0 w-[450px]" data-name="dark-badge-logo">
-        <img alt="ANIT Summer Live 2026 エンブレム" loading="lazy" decoding="async" className="absolute inset-0 max-w-none object-cover pointer-events-none size-full" src={imgDarkBadgeLogo} />
+        <img alt="ANIT Summer Live 2026 エンブレム" width="1448" height="2048" loading="lazy" decoding="async" className="absolute inset-0 max-w-none object-cover pointer-events-none size-full" src={imgDarkBadgeLogo} />
       </div>
     </div>
   );
