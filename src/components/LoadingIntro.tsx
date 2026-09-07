@@ -1,26 +1,26 @@
 import { useEffect, useState, type CSSProperties } from 'react'
-import lampImage from '../assets/logo/ランプ.webp'
+import lampImage from '../assets/logo/ランプ-desktop.webp'
 import lampImageMobile from '../assets/logo/ランプ-mobile.webp'
-import smoke1 from '../assets/logo/煙1.webp'
+import smoke1 from '../assets/logo/煙1-desktop.webp'
 import smoke1Mobile from '../assets/logo/煙1-mobile.webp'
-import smoke2 from '../assets/logo/煙2.webp'
+import smoke2 from '../assets/logo/煙2-desktop.webp'
 import smoke2Mobile from '../assets/logo/煙2-mobile.webp'
-import smoke3 from '../assets/logo/煙3.webp'
+import smoke3 from '../assets/logo/煙3-desktop.webp'
 import smoke3Mobile from '../assets/logo/煙3-mobile.webp'
-import smoke4 from '../assets/logo/煙4.webp'
+import smoke4 from '../assets/logo/煙4-desktop.webp'
 import smoke4Mobile from '../assets/logo/煙4-mobile.webp'
-import smoke5 from '../assets/logo/煙5.webp'
+import smoke5 from '../assets/logo/煙5-desktop.webp'
 import smoke5Mobile from '../assets/logo/煙5-mobile.webp'
-import smoke6 from '../assets/logo/煙6.webp'
+import smoke6 from '../assets/logo/煙6-desktop.webp'
 import smoke6Mobile from '../assets/logo/煙6-mobile.webp'
-import smoke7 from '../assets/logo/煙7.webp'
+import smoke7 from '../assets/logo/煙7-desktop.webp'
 import smoke7Mobile from '../assets/logo/煙7-mobile.webp'
 import smoke8WithBackdrop from '../assets/logo/煙8-下部背景付き-v2.webp'
 import smoke8WithBackdropMobile from '../assets/logo/煙8-下部背景付き-v2-mobile.webp'
 
 type Stage = 'awakening' | 'rising' | 'covering' | 'swiping'
 
-const useMobileAssets = window.matchMedia('(max-width: 640px)').matches
+const useMobileAssets = window.matchMedia('(max-width: 767px)').matches
 const lampSource = useMobileAssets ? lampImageMobile : lampImage
 const earlyFrames = useMobileAssets
   ? [smoke1Mobile, smoke2Mobile, smoke3Mobile, smoke4Mobile]
@@ -129,8 +129,8 @@ export default function LoadingIntro({ onComplete }: { onComplete: () => void })
               key={source}
               className={`loading-intro__smoke loading-intro__smoke--early-${index} ${stage === 'awakening' && frame === index ? 'loading-intro__smoke--active' : ''}`}
               src={source}
-              width={useMobileAssets ? 640 : 1672}
-              height={useMobileAssets ? 360 : 941}
+              width={useMobileAssets ? 640 : 1200}
+              height={useMobileAssets ? 360 : 675}
               alt=""
             />
           ))}
@@ -139,13 +139,13 @@ export default function LoadingIntro({ onComplete }: { onComplete: () => void })
               key={source}
               className={`loading-intro__smoke loading-intro__smoke--rising-${index} ${stage === 'rising' && frame === index ? 'loading-intro__smoke--active' : ''}`}
               src={source}
-              width={useMobileAssets ? 640 : 1672}
-              height={useMobileAssets ? 360 : 941}
+              width={useMobileAssets ? 640 : 1200}
+              height={useMobileAssets ? 360 : 675}
               alt=""
             />
           ))}
           <img className="loading-intro__smoke8" src={smoke8Source} width={useMobileAssets ? 640 : 1024} height={useMobileAssets ? 2310 : 3696} alt="" />
-          <img className="loading-intro__lamp" src={lampSource} width={useMobileAssets ? 320 : 1024} height={useMobileAssets ? 213 : 683} alt="" />
+          <img className="loading-intro__lamp" src={lampSource} width={useMobileAssets ? 320 : 768} height={useMobileAssets ? 213 : 512} alt="" />
         </div>
       </div>
     </div>
